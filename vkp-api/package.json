@@ -1,0 +1,46 @@
+{
+  "name": "vkp-api",
+  "version": "1.0.0",
+  "description": "GraphQL API for VKP-Monitoring",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "test-server": "TEST_DATABASE=test_database npm start",
+    "debug": "nodemon --inspect --exec babel-node src/index.js",
+    "test": "mocha --require @babel/register 'src/**/*.spec.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://plknkl@bitbucket.org/vkpautomations/vkp-api.git"
+  },
+  "author": "Nikolai Polikurov",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/vkpautomations/vkp-api#readme",
+  "dependencies": {
+    "apollo-server": "^2.11.0",
+    "apollo-server-express": "^2.11.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.6.0",
+    "graphql-iso-date": "^3.6.1",
+    "pg": "^7.18.2",
+    "sequelize": "^5.21.5",
+    "subscriptions-transport-ws": "^0.9.16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "axios": "^0.19.2",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.2"
+  }
+}

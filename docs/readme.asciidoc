@@ -1,0 +1,93 @@
+VKP Monitoring API
+==================
+
+== Description
+This API serves as a database crud interface, which accepts GraphQL queries.
+
+== Models
+
+=== Operation [[Operation]]
+An <<Operation>> is a description of some <<Job>> which is tipically executed by an <<Actor>> on a <<Batch>>.
+Various Operations could use different measuring units, like metres or kilograms.
+
+[source,javascript]
+./src/schema/operation.js
+----
+include::./src/schema/operation.js[]
+----
+
+=== Actor [[Actor]]
+An <<Actor>> is any entity, like a machine or workforce unit, which can perform some work.
+Every Actor has one <<Operation>>, which it can perform. An Actor should always be in one of the listed
+states:
+
+* 'idle' - the Actor is waiting for a new Job
+* 'working' - the Actor is busy performing a Job
+* 'broken' - the Actor is needing a maintenance intervention
+* 'maintenance' - the Actor is under maintenance
+
+When a new Job has to be performed, starting an Actor process triggers few distinct
+create/update operations. For instance, the Actor status is being updated to 'working', a new Job is created,
+the Job status is set to 'processing', registering the 'started time', and all the relative update subscriptions
+are fired, so notifications could be raised. 
+
+[source,javascript]
+./src/schema/actor.js
+----
+include::./src/schema/actor.js[]
+----
+
+=== Job [[Job]]
+A <<Job>> is like a tracking container which holds the information about an <<Actor>> performing
+an <<Operation>> on a given <<Batch>>. It tracks the 'starting time', the 'ending time' and various entities
+involved. It could have one of the listed states:
+
+* 'ready' - the Job is ready to be performed. For planning purpose.
+* 'processing' - the Job is currently being executed by an <<Actor>>.
+* 'interrupted' - the Job was interrupted explicitly, before the natural completion.
+* 'finished' - the Job has reached its completion.
+
+[source,javascript]
+./src/schema/job.js
+----
+include::./src/schema/job.js[]
+----
+
+=== Batch [[Batch]]
+A <<Batch>> is a unit of an <<Article>>, which could be processed by an <<Actor>>, it has a unique 'business id' which is
+used to identify the object. 
+
+[source,javascript]
+./src/schema/batch.js
+----
+include::./src/schema/batch.js[]
+----
+
+=== Article [[Article]]
+An <<Article>> is kind of material which describes the content of a <<Batch>>.
+
+[source,javascript]
+./src/schema/article.js
+----
+include::./src/schema/article.js[]
+----
+
+=== Shift [[Shift]]
+A <<Shift>> is a way to identify a team who operated an <<Actor>> on a given time.
+
+[source,javascript]
+./src/schema/shift.js
+----
+include::./src/schema/shift.js[]
+----
+
+=== Log [[Log]]
+This is a utility model, needed to keep tracking of all the updates which are performed on 
+<<Actor>>s and <<Job>>s
+
+[source,javascript]
+./src/schema/log.js
+----
+include::./src/schema/log.js[]
+----
+
