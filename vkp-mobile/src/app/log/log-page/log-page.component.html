@@ -1,0 +1,13 @@
+
+<mat-list>
+  <div class="actor-line" *ngFor="let item of items">
+    <mat-list-item>
+      <span style="margin-right: 2rem;">
+        {{item.log.createdAt | date:'H:mm'}}
+      </span>
+      <span>
+        {{item.message}}
+      </span>
+    </mat-list-item>
+  </div>
+</mat-list>

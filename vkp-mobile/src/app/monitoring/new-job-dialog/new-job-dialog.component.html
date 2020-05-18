@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>New Job</h1>
+<form [formGroup]="newJobForm">
+  <div mat-dialog-content>
+    <p>Please input the batch number</p>
+    <mat-form-field>
+      <mat-label>Batch Number</mat-label>
+      <input [formControl]="batchNumberControl" autocomplete="off" matInput >
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Article</mat-label>
+      <mat-select [formControl]="articleNameControl">
+        <mat-option *ngFor="let article of data.articles"
+        [value]="article.name">
+          {{article.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Shift</mat-label>
+      <mat-select [formControl]="shiftNameControl">
+        <mat-option *ngFor="let shift of data.shifts"
+        [value]="shift.name">
+          {{shift.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="newJobForm.invalid" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

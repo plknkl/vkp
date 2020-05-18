@@ -1,0 +1,26 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>{{toolbarService.title | async}}</span>
+    <span class="details">{{toolbarService.details | async}}</span>
+    <span class="spacer"></span>
+    <span class="btn-container">
+      <span *ngFor="let btn of toolbarService.buttons | async">
+        <button mat-button (click)="onButtonClick(btn)">{{btn}}</button>
+      </span>  
+    </span>
+    <mat-menu #appMenu="matMenu" yPosition="above">
+      <div *ngIf="(routingUtilService.getCurrentRoute$() | async) as currentUrl">
+        <button *ngIf="(currentUrl.slice(1) != monitoringURL)" class="menuItem" mat-menu-item (click)="onMonitoringClick()">Monitoring</button>
+        <button *ngIf="(currentUrl.slice(1) != jobsURL)" class="menuItem" mat-menu-item (click)="onJobsClick()">Jobs</button>
+        <button *ngIf="(currentUrl.slice(1) != logURL)" class="menuItem" mat-menu-item (click)="onLogsClick()">Log</button>
+        <button *ngIf="(currentUrl.slice(1) != maintenanceURL)" class="menuItem" mat-menu-item (click)="onMaintenanceClick()">Maintenance</button>
+        <button *ngIf="(currentUrl.slice(1) != administrationURL)" class="menuItem" mat-menu-item (click)="onAdministrationClick()">Administration</button>
+      </div>
+    </mat-menu>
+    
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
+    </button> 
+    <!-- <button mat-raised-button color="accent" (click)="addToHomeScreen()">Add to home screen</button> -->
+  </mat-toolbar-row>
+</mat-toolbar>

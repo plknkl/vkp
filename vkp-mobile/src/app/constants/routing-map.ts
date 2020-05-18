@@ -1,0 +1,11 @@
+export const MONITORING = 'monitoring'
+export const MAINTENANCE = 'maintenance'
+export const ADMINISTRATION = 'administration'
+export const JOBS = 'jobs'
+
+export const LOG = 'log'
+export const ACTOR = 'actor'
+export const OPERATION = 'operation'
+export const BATCH = 'batch'
+export const ARTICLE = 'article'
+export const SHIFT = 'shift'

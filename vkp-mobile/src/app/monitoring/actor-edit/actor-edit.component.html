@@ -1,0 +1,30 @@
+<div *ngIf="actor$ | async as actor">
+    <mat-list>
+        <mat-list-item *ngIf="!['working', 'maintenance', 'broken'].includes(actor.status)">
+            <button (click)="onNewJobClick(actor)" mat-stroked-button>
+                New Job
+            </button>
+        </mat-list-item>
+        <mat-list-item *ngIf="actor.status == 'working'">
+            <button mat-stroked-button (click)="onFinishJobClick(actor)">
+                Finish current job
+            </button>
+        </mat-list-item>
+        <mat-list-item *ngIf= "['working', 'maintenance'].includes(actor.status)">
+            <button mat-stroked-button (click)="onIdleClick(actor)">
+                Idle 
+            </button>
+        </mat-list-item>
+        <mat-list-item *ngIf="['broken', 'idle'].includes(actor.status)">
+            <button mat-stroked-button (click)="onMaintenanceClick(actor)">
+                Maintenance
+            </button>
+        </mat-list-item>
+        <mat-list-item *ngIf="actor.status != 'broken'">
+            <button mat-stroked-button (click)="onBrokenClick(actor)">
+                Broken
+            </button>
+        </mat-list-item>
+    </mat-list>
+</div>
+

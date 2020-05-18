@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-title>
+    Actor Edit
+  </mat-card-title>
+  
+  <form [formGroup]="actorForm" (ngSubmit)="onSubmit()">
+  <mat-card-content>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Name:</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Operation:</mat-label>
+        <mat-select formControlName="operation">
+          <mat-option *ngFor="let operation of operations"
+          [value]="operation.name">
+            {{operation.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+  </mat-card-content>
+  <mat-card-actions>
+      <button *ngIf="currentItem" (click)="onDelete()" class="delete" mat-stroked-button color="warn">Delete</button>
+      <button class="submit" mat-stroked-button type="submit" [disabled]="!actorForm.valid">Submit</button>
+  </mat-card-actions>
+  </form>
+</mat-card>

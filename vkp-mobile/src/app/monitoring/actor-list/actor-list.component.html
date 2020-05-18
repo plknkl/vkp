@@ -1,0 +1,17 @@
+<main>
+  <div class="actor-line" *ngFor="let item of items">
+    <mat-grid-list cols="4" rowHeight="2:1">
+      <mat-grid-tile [colspan]=3 [rowspan]=1>
+        <mat-card class="actor-card"
+          (click)="edit(item)">
+          <h2>{{item.name}} - {{item.status}}</h2>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-subheading-2 timer">
+          {{timer}}
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</main>

@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title>
+    Article Edit
+  </mat-card-title>
+  
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+  <mat-card-content>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Name:</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+      <button *ngIf="currentItem" (click)="onDelete()" 
+        class="delete" mat-stroked-button color="warn">
+          Delete
+      </button>
+      <button class="submit" mat-stroked-button type="submit" 
+        [disabled]="!articleForm.valid">
+          Submit
+      </button>
+  </mat-card-actions>
+  </form>
+</mat-card>
