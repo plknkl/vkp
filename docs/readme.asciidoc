@@ -2,18 +2,25 @@ VKP Monitoring API
 ==================
 
 == Description
-This API serves as a database crud interface, which accepts GraphQL queries.
+This project creates operational tools with which the operations could be tracked at VKP tannery.
 
-== Models
+There are two modules:
+
+* An 'Apollo GraphQL API' backend.
+* An 'Angular App' frontend.
+
+== Domain Overview
+The main activity flow is a manufacturing product transformational chain. The <<Batch>>es flow thru different <<Actor>>s, 
+which applying an <<Operation>>, transform the <<Batch>>. The single transformation activity is called <<Job>>.
 
 === Operation [[Operation]]
 An <<Operation>> is a description of some <<Job>> which is tipically executed by an <<Actor>> on a <<Batch>>.
 Various Operations could use different measuring units, like metres or kilograms.
 
 [source,javascript]
-./src/schema/operation.js
+../vkp-api/src/schema/operation.js
 ----
-include::./src/schema/operation.js[]
+include::../vkp-api/src/schema/operation.js[]
 ----
 
 === Actor [[Actor]]
@@ -32,9 +39,9 @@ the Job status is set to 'processing', registering the 'started time', and all t
 are fired, so notifications could be raised. 
 
 [source,javascript]
-./src/schema/actor.js
+../vkp-api/src/schema/actor.js
 ----
-include::./src/schema/actor.js[]
+include::../vkp-api/src/schema/actor.js[]
 ----
 
 === Job [[Job]]
@@ -48,9 +55,9 @@ involved. It could have one of the listed states:
 * 'finished' - the Job has reached its completion.
 
 [source,javascript]
-./src/schema/job.js
+../vkp-api/src/schema/job.js
 ----
-include::./src/schema/job.js[]
+include::../vkp-api/src/schema/job.js[]
 ----
 
 === Batch [[Batch]]
@@ -58,27 +65,27 @@ A <<Batch>> is a unit of an <<Article>>, which could be processed by an <<Actor>
 used to identify the object. 
 
 [source,javascript]
-./src/schema/batch.js
+../vkp-api/src/schema/batch.js
 ----
-include::./src/schema/batch.js[]
+include::../vkp-api/src/schema/batch.js[]
 ----
 
 === Article [[Article]]
 An <<Article>> is kind of material which describes the content of a <<Batch>>.
 
 [source,javascript]
-./src/schema/article.js
+../vkp-api/src/schema/article.js
 ----
-include::./src/schema/article.js[]
+include::../vkp-api/src/schema/article.js[]
 ----
 
 === Shift [[Shift]]
 A <<Shift>> is a way to identify a team who operated an <<Actor>> on a given time.
 
 [source,javascript]
-./src/schema/shift.js
+../vkp-api/src/schema/shift.js
 ----
-include::./src/schema/shift.js[]
+include::../vkp-api/src/schema/shift.js[]
 ----
 
 === Log [[Log]]
@@ -86,8 +93,8 @@ This is a utility model, needed to keep tracking of all the updates which are pe
 <<Actor>>s and <<Job>>s
 
 [source,javascript]
-./src/schema/log.js
+../vkp-api/src/schema/log.js
 ----
-include::./src/schema/log.js[]
+include::../vkp-api/src/schema/log.js[]
 ----
 
