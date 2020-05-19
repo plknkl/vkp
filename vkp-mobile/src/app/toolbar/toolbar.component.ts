@@ -11,7 +11,7 @@ import { MONITORING, LOG, MAINTENANCE, ADMINISTRATION, JOBS } from '../constants
 })
 export class ToolbarComponent implements OnInit {
   deferredPrompt: any
-  showButton = false
+  // showButton = false
 
   monitoringURL = MONITORING
   logURL = LOG

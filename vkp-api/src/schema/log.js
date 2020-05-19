@@ -3,8 +3,6 @@ import { gql } from 'apollo-server-express'
 export default gql`
   extend type Query {
     logs: [Log]
-    maintenanceLogs: [Log]
-    jobLogs: [Log]
   }
 
   extend type Subscription {

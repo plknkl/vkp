@@ -8,11 +8,8 @@ import { LogCreatedData, LogsData } from './interfaces'
 import { 
   SUBSCRIBE_TO_CREATED_LOG, 
   GET_LOGS, 
-  GET_MAINTENANCE_LOGS,
-  GET_JOB_LOGS
 } from './queries/log_queries'
 
-import { IDLE, BROKEN, MAINTENANCE } from '../constants/status'
 
 @Injectable({
   providedIn: 'root',
@@ -59,55 +56,5 @@ export class LogService {
       )
   }
 
-  private _getMaintenanceList$() {
-    return this.apollo
-      .query<LogsData>({
-        query: GET_MAINTENANCE_LOGS,
-        fetchPolicy: 'no-cache'
-      })
-      .pipe(
-        map((result) => {
-          return result.data.maintenanceLogs
-        })
-      )
-  }
-
-  private _getJobList$() {
-    return this.apollo
-      .query<LogsData>({
-        query: GET_JOB_LOGS,
-        fetchPolicy: 'no-cache'
-      })
-      .pipe(
-        map((result) => {
-          return result.data.jobLogs
-        })
-      )
-  }
-
-  public getMaintenanceList$() {
-    return this._getMaintenanceList$().pipe(
-      map((logs: Log[]) => {
-        return logs.filter((log) => {
-          if (
-            log.status == BROKEN ||
-            log.status == IDLE ||
-            log.status == MAINTENANCE
-          ) {
-            return true
-          }
-          return false
-        })
-      })
-    ) 
-  }
-
-  public getJobList$() {
-    return this._getJobList$().pipe(
-      map((log) => {
-        return log
-      })
-    )
-  }
 }
 

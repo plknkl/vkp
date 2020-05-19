@@ -18,7 +18,7 @@
       </div>
     </mat-menu>
     
-    <button mat-raised-button color="accent" [matMenuTriggerFor]="appMenu">
+    <button *ngIf="this.toolbarService.options | async" mat-raised-button color="accent" [matMenuTriggerFor]="appMenu">
       <mat-icon>menu</mat-icon>
     </button> 
     <!-- <button mat-raised-button color="accent" (click)="addToHomeScreen()">Add to home screen</button> -->

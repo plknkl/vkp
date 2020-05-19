@@ -62,5 +62,6 @@ export default gql`
     status: String!
     operation: Operation
     currentJob: Job
+    updatedAt: Date
   }
 `

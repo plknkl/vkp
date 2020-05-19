@@ -9,6 +9,7 @@ export class ToolbarService {
   details = new ReplaySubject()
   buttons = new ReplaySubject()
   buttonClick = new BehaviorSubject<string>('')
+  options = new BehaviorSubject(true)
 
   constructor() {}
 
@@ -23,4 +24,13 @@ export class ToolbarService {
   addButtons(buttons: string[]) {
     this.buttons.next(buttons)
   }
+
+  hideOptions() {
+    this.options.next(false)
+  }
+
+  showOptions() {
+    this.options.next(true)
+  }
+
 }

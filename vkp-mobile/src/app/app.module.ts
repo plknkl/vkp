@@ -13,15 +13,21 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloClient } from 'apollo-client'
 import { WebSocketLink } from 'apollo-link-ws'
 
+import { FormsModule } from '@angular/forms'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card'
+import { MatInputModule } from '@angular/material/input'
+
 import { MonitoringModule } from './monitoring/monitoring.module'
 import { ToolbarModule } from './toolbar/toolbar.module'
 import { LogModule } from './log/log.module'
 import { AdministrationModule } from './administration/administration.module'
 import { MaintenanceModule } from './maintenance/maintenance.module'
-import { JobsModule } from './jobs/jobs.module'
+import { JobsModule } from './jobs/jobs.module';
+import { LoginComponent } from './login/login.component'
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent],
 
   imports: [
     BrowserModule,
@@ -34,6 +40,10 @@ import { JobsModule } from './jobs/jobs.module'
     }),
     ApolloModule,
     HttpLinkModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     MonitoringModule,
     ToolbarModule,
     LogModule,

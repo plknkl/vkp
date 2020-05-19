@@ -77,6 +77,7 @@ query {
     operation {
       name
     }
+    updatedAt
   }
 }
 `

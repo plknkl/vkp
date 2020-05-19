@@ -78,7 +78,6 @@ export class ActorEditComponent implements OnDestroy, OnInit {
       })
 
       dialogRef.afterClosed().subscribe((result) => {
-        console.log(result)
         if (result) {
           this.actorService.startActorProcess$(
             actor.name,
@@ -100,10 +99,12 @@ export class ActorEditComponent implements OnDestroy, OnInit {
     })
 
     dialogRef.afterClosed().subscribe((result: number) => {
-      const quantity: number = +result
-      this.actorService.finishActorProcess$(actor.name, quantity).subscribe(() => {
-        this.router.navigate([MONITORING])
-      })
+      if (result) {
+        const quantity: number = +result
+        this.actorService.finishActorProcess$(actor.name, quantity).subscribe(() => {
+          this.router.navigate([MONITORING])
+        })
+      }
     })
   }
 

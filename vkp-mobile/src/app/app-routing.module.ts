@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { ActorContainerComponent } from './monitoring/actor-container/actor-container.component'
+import { LoginComponent } from './login/login.component'
 import { LogPageComponent } from './log/log-page/log-page.component'
 import { MaintenanceListComponent } from './maintenance/maintenance-list/maintenance-list.component'
 import { JobListComponent } from './jobs/job-list/job-list.component'
@@ -11,7 +12,8 @@ import { ArticleEditComponent } from './administration/article-edit/article-edit
 import { ShiftEditComponent } from './administration/shift-edit/shift-edit.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'monitoring', pathMatch: 'full' },
+  { path: '', component: LoginComponent },
+  // { path: '', redirectTo: 'monitoring', pathMatch: 'full' },
   { path: 'monitoring', component: ActorContainerComponent, data: { list: true } },
   {
     path: 'actor/:name',

@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { ActorService } from '../../services/actor.service'
-import { Subscription } from 'rxjs'
+import { Router } from '@angular/router'
+import { Subscription, interval } from 'rxjs'
+import * as moment from 'moment'
 import { Actor } from '../../models/actor'
 import { ToolbarService } from '../../services/toolbar.service'
-import { Router } from '@angular/router'
+import { ActorService } from '../../services/actor.service'
 import { ACTOR } from '../../constants/routing-map'
 
 @Component({
@@ -13,10 +14,7 @@ import { ACTOR } from '../../constants/routing-map'
 })
 export class ActorListComponent implements OnInit, OnDestroy {
   items: Actor[]
-  timer = '0:5:19'
-
-  private actorListSubscription: Subscription
-  private actorUpdateSubscription: Subscription
+  private _subscription: Subscription = new Subscription()
 
   constructor(
     private actorService: ActorService,
@@ -28,22 +26,31 @@ export class ActorListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.actorListSubscription = this.actorService
+    this._subscription.add(this.actorService
       .getActorList$()
       .subscribe((actors: Actor[]) => {
-        this.items = actors
-      })
+        this.items = actors.map(item => {
+          const ms = moment().diff(item.updatedAt)
+          item.updatedAgo = moment.duration(ms)
+          return item
+        })
+        this._subscription.add(interval(1000).subscribe( () => {
+          this.items.forEach(item => {
+            const ms = moment().diff(item.updatedAt)
+            item.updatedAgo = moment.duration(ms)
+          })
+        }))
+      }))
 
-    this.actorUpdateSubscription = this.actorService
+    this._subscription.add(this.actorService
       .updatedActorSubscription$()
       .subscribe((actor: Actor) => {
         this._updateActor(actor)
-      })
+      }))
   }
 
   ngOnDestroy(): void {
-    this.actorListSubscription.unsubscribe()
-    this.actorUpdateSubscription.unsubscribe()
+    this._subscription.unsubscribe()
   }
 
   edit(item: Actor) {
