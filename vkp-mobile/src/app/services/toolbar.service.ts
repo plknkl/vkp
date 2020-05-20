@@ -10,6 +10,8 @@ export class ToolbarService {
   buttons = new ReplaySubject()
   buttonClick = new BehaviorSubject<string>('')
   options = new BehaviorSubject(true)
+  export = new BehaviorSubject(false)
+  exportTrigger = new BehaviorSubject(false)
 
   constructor() {}
 

@@ -50,6 +50,10 @@ export class ToolbarComponent implements OnInit {
   onButtonClick(btn: string) {
     this.toolbarService.buttonClick.next(btn)
   }
+
+  triggerExport() {
+    this.toolbarService.exportTrigger.next(true)
+  }
   // @HostListener('window:beforeinstallprompt', ['$event'])
   // onbeforeinstallprompt(e) {
   //   console.log(e)

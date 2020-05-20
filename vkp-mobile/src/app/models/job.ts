@@ -13,3 +13,4 @@ export interface Job {
   batch: Batch
   shift: Shift
 }
+

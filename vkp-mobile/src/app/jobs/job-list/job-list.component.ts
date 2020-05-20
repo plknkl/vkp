@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ToolbarService } from '../../services/toolbar.service'
 import { JobService } from '../../services/job.service'
 import { Job } from '../../models/job'
-import { Subject } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
+import { exportData } from './job-exporter'
 
 
 @Component({
@@ -10,10 +11,11 @@ import { Subject } from 'rxjs'
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss']
 })
-export class JobListComponent implements OnInit {
+export class JobListComponent implements OnInit, OnDestroy {
   items$: Subject<Job[]> = new Subject<Job[]>()
   displayedColumns: string[]
   private _items: Job[] = []
+  private  subs: Subscription = new Subscription()
 
   constructor(
     private _toolbarService: ToolbarService,
@@ -22,20 +24,24 @@ export class JobListComponent implements OnInit {
 
   ngOnInit(): void {
     this._toolbarService.changeTitle('Jobs')
+    this._toolbarService.export.next(true)
     this.displayedColumns = [
       'shift', 'actorName',
       'batchNum', 'article', 'quantity',
       'fromDate', 'toDate'
     ];
 
-    this._jobService
+    this.subs.add( 
+      this._jobService
       .getJobList$()
       .subscribe((jobs: Job[]) => {
         this._items = jobs
         this.items$.next(this._items)
       })
-      
-    this._jobService
+    )
+     
+    this.subs.add(
+      this._jobService
       .updatedJobSubscription$()
       .subscribe((job: Job) => {
 
@@ -53,6 +59,20 @@ export class JobListComponent implements OnInit {
         this._items.unshift(job)
         this.items$.next(this._items)
       })
+    )
+
+    this.subs.add(
+      this._toolbarService.exportTrigger.subscribe((result) => {
+        if (result) {
+          exportData(this._items)
+        }
+      })
+    )
   }
 
+
+  ngOnDestroy(): void {
+    this._toolbarService.export.next(false)
+    this.subs.unsubscribe()
+  }
 }

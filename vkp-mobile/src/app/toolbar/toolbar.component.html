@@ -18,6 +18,10 @@
       </div>
     </mat-menu>
     
+    <button (click)="triggerExport()" class="excel" *ngIf="this.toolbarService.export | async" mat-raised-button>
+      excel
+    </button>
+
     <button *ngIf="this.toolbarService.options | async" mat-raised-button color="accent" [matMenuTriggerFor]="appMenu">
       <mat-icon>menu</mat-icon>
     </button> 
