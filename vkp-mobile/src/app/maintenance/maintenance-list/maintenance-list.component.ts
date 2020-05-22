@@ -21,7 +21,7 @@ export class MaintenanceListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._toolbarService.changeTitle('Maintenance')
+    this._toolbarService.changeTitle('maintenance')
 
     this.displayedColumns = ['name', 'status'];
 

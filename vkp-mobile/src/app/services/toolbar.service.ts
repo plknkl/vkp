@@ -5,8 +5,8 @@ import { ReplaySubject, BehaviorSubject } from 'rxjs'
   providedIn: 'root',
 })
 export class ToolbarService {
-  title = new ReplaySubject()
-  details = new ReplaySubject()
+  title = new ReplaySubject<string>()
+  details = new ReplaySubject<string>()
   buttons = new ReplaySubject()
   buttonClick = new BehaviorSubject<string>('')
   options = new BehaviorSubject(true)

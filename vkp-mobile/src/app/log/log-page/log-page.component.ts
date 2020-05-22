@@ -23,7 +23,7 @@ export class LogPageComponent implements OnInit, OnDestroy {
   constructor(private _logService: LogService, private _toolbarService: ToolbarService) {}
 
   ngOnInit(): void {
-    this._toolbarService.changeTitle('Log')
+    this._toolbarService.changeTitle('log')
 
     this._logListSubscription = this._logService
       .getLogList$()

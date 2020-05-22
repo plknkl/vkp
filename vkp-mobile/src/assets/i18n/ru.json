@@ -1,0 +1,18 @@
+{
+  "login":"логин",
+  "monitoring": "контроль",
+  "jobs": "задания",
+  "maintenance": "обслуживание",
+  "log": "лог",
+  "administration": "администрация",
+  "article": "артикль",
+  "actor": "актер",
+  "operation": "операция",
+  "shift": "смена",
+  "name": "имя",
+  "status": "статус",
+  "description": "описание",
+  "idle": "в ожидании",
+  "working": "в процессе",
+  "broken": "поломка"
+}

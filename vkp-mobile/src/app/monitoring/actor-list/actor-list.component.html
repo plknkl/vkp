@@ -4,7 +4,12 @@
       <mat-grid-tile [colspan]=3 [rowspan]=1>
         <mat-card class="actor-card"
           (click)="edit(item)">
-          <h2>{{item.name}} - {{item.status}}</h2>
+          <mat-card-title>
+            {{item.name}}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{item.status | translate}}
+          </mat-card-subtitle>
         </mat-card>
       </mat-grid-tile>
       <mat-grid-tile>

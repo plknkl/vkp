@@ -21,7 +21,7 @@ export class ActorListComponent implements OnInit, OnDestroy {
     private toolbarService: ToolbarService,
     private router: Router
   ) {
-    this.toolbarService.changeTitle('Monitoring')
+    this.toolbarService.changeTitle('monitoring')
     this.toolbarService.changeDetails('')
   }
 

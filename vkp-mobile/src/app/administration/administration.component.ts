@@ -31,6 +31,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this._toolbarService.changeTitle('administration')
     this._activatedRoute.params.subscribe((params) => {
       switch (params.any) {
         case ARTICLE:

@@ -23,7 +23,7 @@ export class JobListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this._toolbarService.changeTitle('Jobs')
+    this._toolbarService.changeTitle('jobs')
     this._toolbarService.export.next(true)
     this.displayedColumns = [
       'shift', 'actorName',

@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { ServiceWorkerModule } from '@angular/service-worker'
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { environment } from '../environments/environment'
 
 import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular'
@@ -26,6 +28,10 @@ import { MaintenanceModule } from './maintenance/maintenance.module'
 import { JobsModule } from './jobs/jobs.module';
 import { LoginComponent } from './login/login.component'
 
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [AppComponent, LoginComponent],
 
@@ -34,6 +40,13 @@ import { LoginComponent } from './login/login.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+          useFactory: createTranslateLoader,
+          deps: [HttpClient]
+      }
+    }),
     ToolbarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
