@@ -45,13 +45,6 @@ const createStuff = async () => {
     }
   ])
 
-  // await models.Job.bulkCreate([
-  //   {
-  //     status: 'ready',
-  //     startedAt: null,
-  //     endedAt: null
-  //   }
-  // ])
 }
 
 export default createStuff

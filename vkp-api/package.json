@@ -7,7 +7,8 @@
     "start": "nodemon --exec babel-node src/index.js",
     "test-server": "TEST_DATABASE=test_database npm start",
     "debug": "nodemon --inspect --exec babel-node src/index.js",
-    "test": "mocha --require @babel/register 'src/**/*.spec.js'"
+    "test": "mocha --require @babel/register 'src/**/*.spec.js'",
+    "build": "nodemon --exec babel-node ./src -d ./dist/"
   },
   "repository": {
     "type": "git",

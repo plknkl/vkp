@@ -35,7 +35,7 @@ sequelize.sync({ force: isTest }).then(async () => {
   if (isTest) {
     createStuff()
   }
-  httpServer.listen({ port: 8000 }, () => {
-    console.log('Server running on 8000...')
+  httpServer.listen({ port: 8082 }, () => {
+    console.log('Server running on 8082...')
   })
 })
