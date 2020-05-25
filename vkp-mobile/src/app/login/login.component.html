@@ -6,6 +6,10 @@
       <mat-form-field>
           <input [(ngModel)]="inputValue" autocomplete="off" matInput (keyup.enter)="login()">
       </mat-form-field>
+      <div class="language-selector">
+        <button (click)="onLangClick('eng')" mat-stroked-button> eng </button>
+        <button (click)="onLangClick('rus')" mat-stroked-button> рус </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

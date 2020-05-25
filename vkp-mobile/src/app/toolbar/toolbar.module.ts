@@ -6,6 +6,8 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
+import { MatDividerModule } from '@angular/material/divider';
+
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -31,6 +33,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatDividerModule
   ],
   exports: [ToolbarComponent],
 })

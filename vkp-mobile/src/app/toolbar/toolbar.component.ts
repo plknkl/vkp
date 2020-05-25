@@ -47,6 +47,10 @@ export class ToolbarComponent implements OnInit {
     this._router.navigate([ADMINISTRATION])
   }
 
+  onLogoutClick() {
+    this._router.navigate(['/'])
+  }
+
   onButtonClick(btn: string) {
     this.toolbarService.buttonClick.next(btn)
   }

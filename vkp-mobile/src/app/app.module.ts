@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button';
+
 
 import { MonitoringModule } from './monitoring/monitoring.module'
 import { ToolbarModule } from './toolbar/toolbar.module'
@@ -57,6 +59,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     MonitoringModule,
     ToolbarModule,
     LogModule,

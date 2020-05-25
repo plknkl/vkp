@@ -35,6 +35,12 @@
           (click)="onAdministrationClick()">
           {{"administration" | translate | titlecase}}
         </button>
+        <mat-divider></mat-divider>
+        <button 
+          class="menuItem logout" mat-menu-item
+          (click)="onLogoutClick()">
+          {{"logout" | translate | titlecase}}
+        </button>
       </div>
     </mat-menu>
     

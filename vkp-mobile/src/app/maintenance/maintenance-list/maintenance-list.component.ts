@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ToolbarService } from '../../services/toolbar.service'
 import { ActorService } from '../../services/actor.service'
 import { Actor } from '../../models/actor'
-import { Subject } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
 
 
 @Component({
@@ -10,10 +10,11 @@ import { Subject } from 'rxjs'
   templateUrl: './maintenance-list.component.html',
   styleUrls: ['./maintenance-list.component.scss'],
 })
-export class MaintenanceListComponent implements OnInit {
+export class MaintenanceListComponent implements OnInit, OnDestroy {
   items$: Subject<Actor[]> = new Subject<Actor[]>()
   displayedColumns: string[]
   private _items: Actor[] = []
+  private _subs: Subscription = new Subscription()
 
   constructor(
     private _toolbarService: ToolbarService,
@@ -25,13 +26,14 @@ export class MaintenanceListComponent implements OnInit {
 
     this.displayedColumns = ['name', 'status'];
 
-    this._actorService
+    this._subs.add(this._actorService
       .getActorList$()
       .subscribe((actors: Actor[]) => {
         this.items$.next(actors)
       })
+    )
 
-    this._actorService
+    this._subs.add(this._actorService
       .updatedActorSubscription$()
       .subscribe((actor: Actor) => {
 
@@ -49,6 +51,11 @@ export class MaintenanceListComponent implements OnInit {
         this._items.unshift(actor)
         this.items$.next(this._items)
       })
+    )
+  }
+
+  ngOnDestroy(): void {
+    this._subs.unsubscribe()
   }
 
 }
