@@ -1,0 +1,39 @@
+mat-toolbar {
+    margin-bottom: 2rem;
+    background: #7ec3ea;
+    color: white;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.details {
+    margin-left: 2rem;
+    font-weight: 100;
+}
+
+.menuItem {
+    width: 20rem;
+    font-size: large;
+    margin-bottom: 2rem;
+}
+
+.btn-container {
+    position: relative;
+    right: 3rem;
+}
+
+.btn-container button {
+    margin-right: 1rem;
+}
+
+.excel {
+  background-color: #207245;
+  color: white;
+  margin-right: 2rem;
+}
+
+.logout {
+  margin-bottom: 0;
+}

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title class="title">{{'finish job' | translate | titlecase}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{'quantity' | translate}}</mat-label>
+    <input matInput autocomplete="off" [(ngModel)]="data.quantity">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">{{'cancel' | translate | titlecase}}</button>
+  <button [disabled]="data.quantity == null" mat-button [mat-dialog-close]="data.quantity" cdkFocusInitial>{{'ok' | translate | titlecase}}</button>
+</div>

@@ -1,0 +1,21 @@
+.login-container {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: large;
+}
+
+mat-card {
+  width: 30%;
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+.language-selector {
+  display:flex;
+  justify-content: space-evenly
+}
