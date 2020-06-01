@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vkp-mobile": {
+    "vkp-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vkp-mobile",
+            "outputPath": "dist/vkp-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vkp-mobile:build"
+            "browserTarget": "vkp-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "vkp-mobile:build:production"
+              "browserTarget": "vkp-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vkp-mobile:build"
+            "browserTarget": "vkp-app:build"
           }
         },
         "test": {
@@ -120,16 +120,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "vkp-mobile:serve"
+            "devServerTarget": "vkp-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "vkp-mobile:serve:production"
+              "devServerTarget": "vkp-app:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "vkp-mobile"
+  "defaultProject": "vkp-app"
 }

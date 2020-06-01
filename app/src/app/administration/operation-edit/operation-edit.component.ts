@@ -36,9 +36,9 @@ export class OperationEditComponent implements OnInit {
         if (item) {
           this.currentItem = item
           this.operationForm.setValue({name: item.name, description: item.description})
-          this._toolbarService.changeTitle('Edit')
+          this._toolbarService.changeTitle('edit')
         } else {
-          this._toolbarService.changeTitle('New')
+          this._toolbarService.changeTitle('new')
         }
       })
   }

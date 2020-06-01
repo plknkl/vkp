@@ -45,9 +45,9 @@ export class ActorEditComponent implements OnInit {
         if (item) {
           this.currentItem = item
           this.actorForm.setValue({ name: item.name, operation: item.operation.name })
-          this._toolbarService.changeTitle('Edit')
+          this._toolbarService.changeTitle('edit')
         } else {
-          this._toolbarService.changeTitle('New')
+          this._toolbarService.changeTitle('new')
         }
       })
   }

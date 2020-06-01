@@ -24,5 +24,15 @@
   "quantity": "количество",
   "batch": "партия",
   "started at": "начало",
-  "ended at": "конец"
+  "ended at": "конец",
+  "actor edit": "редактирование актера",
+  "article edit": "редактирование артикля",
+  "operation edit": "редактирование операции",
+  "shift edit": "редактирование смены",
+  "new":"добавить",
+  "edit":"изменить",
+  "article admin": "админ артиклей",
+  "actor admin": "админ актерoв",
+  "operation admin": "админ операций",
+  "shift admin": "админ смен"
 }

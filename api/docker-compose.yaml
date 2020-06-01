@@ -19,7 +19,7 @@ services:
     restart: "no"
     depends_on:
       - postgres
-  node:
+  vkp_api:
     build: ./
     image: vkp-api
     ports:

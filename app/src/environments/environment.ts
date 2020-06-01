@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'ws://localhost:8000/graphql',
+  baseUrl: 'ws://localhost:8082/graphql',
 }
 
 /*

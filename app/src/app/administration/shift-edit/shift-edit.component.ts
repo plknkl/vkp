@@ -35,9 +35,9 @@ export class ShiftEditComponent implements OnInit {
         if (item) {
           this.currentItem = item
           this.shiftForm.setValue({name: item.name})
-          this._toolbarService.changeTitle('Edit')
+          this._toolbarService.changeTitle('edit')
         } else {
-          this._toolbarService.changeTitle('New')
+          this._toolbarService.changeTitle('new')
         }
       })
   }

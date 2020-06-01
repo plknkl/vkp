@@ -35,9 +35,9 @@ export class ArticleEditComponent implements OnInit {
         if (item) {
           this.currentItem = item
           this.articleForm.setValue({name: item.name})
-          this._toolbarService.changeTitle('Edit')
+          this._toolbarService.changeTitle('edit')
         } else {
-          this._toolbarService.changeTitle('New')
+          this._toolbarService.changeTitle('new')
         }
       })
   }

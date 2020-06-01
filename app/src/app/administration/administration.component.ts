@@ -31,7 +31,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._toolbarService.changeTitle('administration')
+    this._pageSwitch(ARTICLE)
     this._activatedRoute.params.subscribe((params) => {
       switch (params.any) {
         case ARTICLE:
@@ -96,6 +96,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
     this._currentPage = page
     switch (page) {
       case ACTOR:
+        this._toolbarService.changeTitle('actor admin')
         this._actorService.getActorList$().subscribe((actors: Actor[]) => {
           this.items = actors.map((actor) => {
             return {
@@ -108,6 +109,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
         this._operationService
           .getOperations$()
           .subscribe((operations: Operation[]) => {
+          this._toolbarService.changeTitle('operation admin')
             this.items = operations.map((operation) => {
               return {
                 name: operation.name,
@@ -118,6 +120,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
         break
       case ARTICLE:
         this._articleService.getArticles$().subscribe((articles: Article[]) => {
+          this._toolbarService.changeTitle('article admin')
           this.items = articles.map((article) => {
             return {
               name: article.name,
@@ -127,6 +130,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
         break
       case SHIFT:
         this._shiftService.getShifts$().subscribe((shifts: Shift[]) => {
+          this._toolbarService.changeTitle('shift admin')
           this.items = shifts.map((shift) => {
             return {
               name: shift.name,
