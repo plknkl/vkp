@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ReplaySubject, BehaviorSubject } from 'rxjs'
+import { ReplaySubject, BehaviorSubject, Subject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ export class ToolbarService {
   title = new ReplaySubject<string>()
   details = new ReplaySubject<string>()
   buttons = new ReplaySubject()
-  buttonClick = new BehaviorSubject<string>('')
+  buttonClick = new Subject<string>()
   options = new BehaviorSubject(true)
   export = new BehaviorSubject(false)
   exportTrigger = new BehaviorSubject(false)

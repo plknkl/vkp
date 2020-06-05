@@ -104,4 +104,8 @@ dist/
 tmp/
 temp/
 
+# VIM Session
 Session.vim
+# Database backup
+.dump
+
