@@ -98,3 +98,5 @@ This is a utility model, needed to keep tracking of all the updates which are pe
 include::../vkp-api/src/schema/log.js[]
 ----
 
+== Data Management
+There are two scripts included for data backup and restore, which can be executed on running containers.
