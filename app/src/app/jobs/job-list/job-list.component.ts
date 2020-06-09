@@ -35,7 +35,13 @@ export class JobListComponent implements OnInit, OnDestroy {
       this._jobService
       .getJobList$()
       .subscribe((jobs: Job[]) => {
-        this._items = jobs
+        // filter out jobs with missing models which may have no longer exist
+        // this should be managed in some better way
+        this._items = jobs.filter(item => {
+          if (item.actor) {
+            return true
+          }
+        })
         this.items$.next(this._items)
       })
     )

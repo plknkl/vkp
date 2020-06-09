@@ -28,14 +28,15 @@ import { LogModule } from './log/log.module'
 import { AdministrationModule } from './administration/administration.module'
 import { MaintenanceModule } from './maintenance/maintenance.module'
 import { JobsModule } from './jobs/jobs.module';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { ErrorPopUpComponent } from './error-pop-up/error-pop-up.component'
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, ErrorPopUpComponent],
 
   imports: [
     BrowserModule,

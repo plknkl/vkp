@@ -34,5 +34,7 @@
   "article admin": "админ артиклей",
   "actor admin": "админ актерoв",
   "operation admin": "админ операций",
-  "shift admin": "админ смен"
+  "shift admin": "админ смен",
+  "Something went wrong": "Что-то не работает",
+  "Please, contact the it office": "Пожалуйста, свяжитесь с поддержкой"
 }

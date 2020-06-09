@@ -30,7 +30,7 @@ export function createTranslateLoader(http: HttpClient) {
     ActorListComponent,
     ActorContainerComponent,
     NewJobDialogComponent,
-    FinishJobDialogComponent,
+    FinishJobDialogComponent
   ],
   imports: [
     CommonModule,

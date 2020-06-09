@@ -10,6 +10,7 @@ import { ShiftService } from '../../services/shift.service'
 import { ToolbarService } from '../../services/toolbar.service'
 import { NewJobDialogComponent } from '../new-job-dialog/new-job-dialog.component'
 import { FinishJobDialogComponent } from '../finish-job-dialog/finish-job-dialog.component'
+import { ErrorPopUpComponent } from '../../error-pop-up/error-pop-up.component'
 import { MONITORING } from '../../constants/routing-map'
 
 @Component({
@@ -84,9 +85,14 @@ export class ActorEditComponent implements OnDestroy, OnInit {
             result.batchNumber,
             result.articleName,
             result.shiftName
-          ).subscribe(() => {
-            this.router.navigate([MONITORING])
-          })
+          ).subscribe(
+            () => {
+              this.router.navigate([MONITORING])
+            },
+            (err) => {
+              console.log(err)
+              this.dialog.open(ErrorPopUpComponent)              
+            })
         }
       })
     })
