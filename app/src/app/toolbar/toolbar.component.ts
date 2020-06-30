@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ToolbarService } from '../services/toolbar.service'
 import { RoutingUtilService } from '../services/routing-util.service'
+import { AuthenticationService } from '../services/authentication.service'
 import { MONITORING, LOG, MAINTENANCE, ADMINISTRATION, JOBS } from '../constants/routing-map'
 
 @Component({
@@ -21,11 +22,14 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     public toolbarService: ToolbarService,
+    public authenticationService: AuthenticationService,
     private _router: Router,
     public routingUtilService: RoutingUtilService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authenticationService.currentRole$.subscribe((zz) => {console.log(zz)})
+  }
 
   onMonitoringClick() {
     this._router.navigate([MONITORING])
@@ -48,6 +52,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   onLogoutClick() {
+    localStorage.removeItem('role')
     this._router.navigate(['/'])
   }
 

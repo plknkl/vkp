@@ -2,7 +2,7 @@ const batch = (sequelize, DataTypes) => {
   const Batch = sequelize.define('batch', {
     businessId: {
       type: DataTypes.INTEGER,
-      unique: true,
+      unique: false,
       validate: {
         notEmpty: true
       }

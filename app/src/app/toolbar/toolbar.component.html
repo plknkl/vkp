@@ -1,5 +1,6 @@
 <mat-toolbar>
   <mat-toolbar-row>
+    <span class="img-logo"><img src="assets/images/vkp.png"></span>
     <span>{{toolbarService.title | async | translate | titlecase}}</span>
     <span class="details">{{toolbarService.details | async | translate | titlecase}}</span>
     <span class="spacer"></span>
@@ -30,7 +31,7 @@
           (click)="onMaintenanceClick()">
           {{"maintenance" | translate | titlecase}}
         </button>
-        <button *ngIf="(currentUrl.slice(1) != administrationURL)"
+        <button *ngIf="(currentUrl.slice(1) != administrationURL && ((authenticationService.currentRole$ | async) == 'Admin'))"
           class="menuItem" mat-menu-item
           (click)="onAdministrationClick()">
           {{"administration" | translate | titlecase}}

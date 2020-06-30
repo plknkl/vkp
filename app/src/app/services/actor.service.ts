@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { Apollo } from 'apollo-angular'
 import { ActorData, ActorsData, ActorUpdatedData } from './interfaces'
-import { Actor } from '../models/actor'
 import { map } from 'rxjs/operators'
 import { BehaviorSubject } from 'rxjs'
+import { Actor } from '../models/actor'
+import { ErrorCatch } from '../decorators/error-catch'
 
 import {
   GET_ACTORS,
@@ -28,6 +29,7 @@ export class ActorService {
 
   constructor(private apollo: Apollo) {}
 
+  @ErrorCatch
   public createActor$(name: string, operationName: string) {
     return this.apollo.mutate<ActorData>({
       mutation: CREATE_ACTOR,
@@ -38,6 +40,7 @@ export class ActorService {
     })
   }
 
+  @ErrorCatch
   public updateActor$(oldName: string, newName: string, operationName: string) {
     return this.apollo.mutate<ActorData>({
       mutation: UPDATE_ACTOR,
@@ -49,6 +52,7 @@ export class ActorService {
     })
   }
 
+  @ErrorCatch
   public deleteActor$(item: Actor) {
     return this.apollo.mutate({
       mutation: DELETE_ACTOR,
@@ -58,6 +62,7 @@ export class ActorService {
     })
   }
 
+  @ErrorCatch
   public getActorList$() {
     return this.apollo
       .query<ActorsData>({
@@ -71,6 +76,7 @@ export class ActorService {
       )
   }
 
+  @ErrorCatch
   public getActor$(name: string) {
     return this.apollo
       .query<ActorData>({
@@ -93,6 +99,7 @@ export class ActorService {
     return this._actorList.find((x) => x.name === name)
   }
 
+  @ErrorCatch
   public updateActorStatus$(actorName: string, status: string) {
     return this.apollo.mutate({
       mutation: UPDATE_ACTOR_STATUS,
@@ -103,6 +110,7 @@ export class ActorService {
     })
   }
 
+  @ErrorCatch
   public startActorProcess$(
     actorName: string,
     batchBusinessId: string,
@@ -120,6 +128,7 @@ export class ActorService {
     })
   }
 
+  @ErrorCatch
   public finishActorProcess$(actorName: string, quantity: number) {
     return this.apollo.mutate({
       mutation: FINISH_ACTOR_PROCESS,

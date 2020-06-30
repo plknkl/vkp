@@ -19,7 +19,7 @@ export class ActorListComponent implements OnInit, OnDestroy {
   constructor(
     private actorService: ActorService,
     private toolbarService: ToolbarService,
-    private router: Router
+    private _router: Router,
   ) {
     this.toolbarService.changeTitle('monitoring')
     this.toolbarService.changeDetails('')
@@ -45,6 +45,7 @@ export class ActorListComponent implements OnInit, OnDestroy {
     this._subscription.add(this.actorService
       .updatedActorSubscription$()
       .subscribe((actor: Actor) => {
+        console.log(actor)
         this._updateActor(actor)
       }))
   }
@@ -55,7 +56,7 @@ export class ActorListComponent implements OnInit, OnDestroy {
 
   edit(item: Actor) {
     this.toolbarService.changeTitle(item.name)
-    this.router.navigate([ACTOR, item.name])
+    this._router.navigate([ACTOR, item.name])
   }
 
   private _updateActor(item: Actor) {

@@ -1,8 +1,8 @@
 {
-  "name": "vkp-mobile",
-  "short_name": "vkp-mobile",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "vkp-monitoring",
+  "short_name": "vkp-monitoring",
+  "theme_color": "#3ec1d3",
+  "background_color": "#3ec1d3",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

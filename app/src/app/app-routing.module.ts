@@ -10,15 +10,20 @@ import { OperationEditComponent } from './administration/operation-edit/operatio
 import { ActorEditComponent } from './administration/actor-edit/actor-edit.component'
 import { ArticleEditComponent } from './administration/article-edit/article-edit.component'
 import { ShiftEditComponent } from './administration/shift-edit/shift-edit.component'
+import { Role } from './models/role'
+import { AuthGuard } from './utils/auth.guard'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  // { path: '', redirectTo: 'monitoring', pathMatch: 'full' },
   { path: 'monitoring', component: ActorContainerComponent, data: { list: true } },
   {
     path: 'actor/:name',
     component: ActorContainerComponent,
-    data: { edit: true },
+    data: {
+      edit: true,
+      roles: [Role.Admin, Role.Operations]
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'log',
@@ -36,26 +41,38 @@ const routes: Routes = [
   {
     path: 'administration/operation/:name',
     component: OperationEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'administration/actor/:name',
     component: ActorEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'administration/article/:article',
     component: ArticleEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'administration/shift/:shift',
     component: ShiftEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'administration/:any',
-    component: AdministrationComponent
+    component: AdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'administration',
-    component: AdministrationComponent
+    component: AdministrationComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
 ]
 

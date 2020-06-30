@@ -1,5 +1,14 @@
+.table-container {
+  display: flex;
+}
+
 table {
-  margin-left: 2rem;
+  justify-content: center;
+  margin: auto;
+}
+
+.broken {
+  background-color: #ffb8b8;
 }
 
 .mat-column-name {

@@ -1,5 +1,18 @@
+.table-container {
+  display: flex;
+}
+
 table {
-  margin-left: 2rem;
+  justify-content: center;
+  margin: auto;
+}
+
+.mat-row:nth-child(odd){
+  background-color:white;
+}
+
+.mat-row:nth-child(even){
+  background-color:#f4f4f4;
 }
 
 .mat-column-shift,

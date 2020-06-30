@@ -1,16 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { MatTableModule } from '@angular/material/table'
+import { MatCardModule } from '@angular/material/card'
+import { MatTabsModule } from '@angular/material/tabs'
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { HttpClient } from '@angular/common/http'
 
-import { JobListComponent } from './job-list/job-list.component';
+import { JobListComponent } from './job-list/job-list.component'
 
 
 export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http)
 }
 
 @NgModule({
@@ -24,7 +26,9 @@ export function createTranslateLoader(http: HttpClient) {
           deps: [HttpClient]
       }
     }),
-    MatTableModule
+    MatTableModule,
+    MatCardModule,
+    MatTabsModule
   ]
 })
 export class JobsModule { }

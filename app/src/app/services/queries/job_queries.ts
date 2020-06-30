@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const GET_JOBS = gql`
-query {
-  jobs {
+query jobs($period: Int){
+  jobs(period: $period) {
     startedAt
     endedAt
     quantity

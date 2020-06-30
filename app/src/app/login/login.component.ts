@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-import { ToolbarService } from '../services/toolbar.service'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core';
+import { ToolbarService } from '../services/toolbar.service'
+import { AuthenticationService } from '../services/authentication.service'
+import { Router } from '@angular/router'
+import { MONITORING } from '../constants/routing-map'
 
 
 @Component({
@@ -9,24 +11,32 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   inputValue
+
   constructor( 
-    private _router: Router,
     private _toolbarService: ToolbarService,
-    private _translateService: TranslateService
+    private _translateService: TranslateService,
+    private _authenticationService: AuthenticationService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
     this._toolbarService.hideOptions()
+    this._toolbarService.changeTitle('VKP')
+    const role = localStorage.getItem('role')
+    if (role) {
+      this._router.navigate([MONITORING])
+    }
+  }
+
+  ngOnDestroy() {
+    this._toolbarService.showOptions()
   }
 
   login() {
-    if (this.inputValue == 'm') {
-      this._toolbarService.showOptions()
-      this._router.navigate(['monitoring'])
-    }
+    this._authenticationService.login(this.inputValue)
   }
 
   onLangClick(lang) {
@@ -38,4 +48,5 @@ export class LoginComponent implements OnInit {
       this._translateService.use('ru')
     }
   }
+
 }

@@ -13,7 +13,7 @@ import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular'
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloClient } from 'apollo-client'
-import { WebSocketLink } from 'apollo-link-ws'
+// import { WebSocketLink } from 'apollo-link-ws'
 
 import { FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,6 +30,8 @@ import { MaintenanceModule } from './maintenance/maintenance.module'
 import { JobsModule } from './jobs/jobs.module';
 import { LoginComponent } from './login/login.component';
 import { ErrorPopUpComponent } from './error-pop-up/error-pop-up.component'
+
+import { link } from './constants/api-url'
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/');
@@ -74,10 +76,11 @@ export function createTranslateLoader(http: HttpClient) {
       useFactory: () => {
         return new ApolloClient({
           cache: new InMemoryCache(),
-          link: new WebSocketLink({
-            uri: environment.baseUrl,
-            reconnect: true,
-          }),
+//          link: new WebSocketLink({
+//            uri: environment.baseUrl,
+//            reconnect: true,
+//          }),
+          link: link,
           defaultOptions: {
             query: {
               fetchPolicy: 'no-cache',

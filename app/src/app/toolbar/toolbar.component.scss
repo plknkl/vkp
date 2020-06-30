@@ -1,7 +1,16 @@
 mat-toolbar {
     margin-bottom: 2rem;
-    background: #7ec3ea;
+    background: rgb(62,193,211);
     color: white;
+}
+
+.img-logo {
+  width: 4rem;
+  height: 3rem;
+}
+
+.img-logo img {
+  height: 100%
 }
 
 .spacer {

@@ -95,6 +95,11 @@ export default {
       actor = actor.dataValues
       actor.currentJob = job
       actor.operation = operation
+
+      pubsub.publish(EVENTS.ACTOR.UPDATED, {
+        actorUpdated: actor
+      })
+
       return actor
     },
 
@@ -106,6 +111,10 @@ export default {
 
       await interruptActorsJob(actor)
 
+      pubsub.publish(EVENTS.ACTOR.UPDATED, {
+        actorUpdated: actor
+      })
+
       return actor
     },
 
@@ -116,6 +125,10 @@ export default {
       await actor.save()
 
       finishActorsJob(actor, quantity)
+
+      pubsub.publish(EVENTS.ACTOR.UPDATED, {
+        actorUpdated: actor
+      })
 
       return actor
     },

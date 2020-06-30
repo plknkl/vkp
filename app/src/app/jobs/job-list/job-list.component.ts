@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core'
 import { ToolbarService } from '../../services/toolbar.service'
-import { JobService } from '../../services/job.service'
+import { JobService, Period } from '../../services/job.service'
 import { Job } from '../../models/job'
 import { Subject, Subscription } from 'rxjs'
 import { exportData } from './job-exporter'
@@ -15,11 +15,13 @@ export class JobListComponent implements OnInit, OnDestroy {
   items$: Subject<Job[]> = new Subject<Job[]>()
   displayedColumns: string[]
   private _items: Job[] = []
-  private  subs: Subscription = new Subscription()
+  private  _subs: Subscription = new Subscription()
+  private  _updateSub: Subscription = new Subscription()
 
   constructor(
     private _toolbarService: ToolbarService,
     private _jobService: JobService,
+    private _cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -31,9 +33,33 @@ export class JobListComponent implements OnInit, OnDestroy {
       'fromDate', 'toDate'
     ];
 
-    this.subs.add( 
+    this._loadJobs(Period.Today)
+
+    this._subs.add(
+      this._toolbarService.exportTrigger.subscribe((result) => {
+        if (result) {
+          exportData(this._items)
+        }
+      })
+    )
+  }
+
+  ngOnDestroy(): void {
+    this._toolbarService.export.next(false)
+    this._subs.unsubscribe()
+    this._updateSub.unsubscribe()
+  }
+
+  private _loadJobs(period: Period) {
+    this._updateSub.unsubscribe()
+    this._updateSub = new Subscription()
+    if (period == 0 || period == 2) {
+      this._updateSubscribe() 
+    }
+
+    this._subs.add( 
       this._jobService
-      .getJobList$()
+      .getJobList$(period)
       .subscribe((jobs: Job[]) => {
         // filter out jobs with missing models which may have no longer exist
         // this should be managed in some better way
@@ -45,15 +71,17 @@ export class JobListComponent implements OnInit, OnDestroy {
         this.items$.next(this._items)
       })
     )
-     
-    this.subs.add(
+  }
+
+  onTabClick(event): void {
+    this._loadJobs(event.index)
+  }
+
+  private _updateSubscribe() {
+    this._updateSub.add(
       this._jobService
       .updatedJobSubscription$()
       .subscribe((job: Job) => {
-
-        if (this._items.length >= 10) {
-          this._items.pop()
-        }
 
         this._items = this._items.filter((item) => {
           return (
@@ -63,22 +91,10 @@ export class JobListComponent implements OnInit, OnDestroy {
         })
 
         this._items.unshift(job)
+
         this.items$.next(this._items)
+        this._cdr.detectChanges()
       })
     )
-
-    this.subs.add(
-      this._toolbarService.exportTrigger.subscribe((result) => {
-        if (result) {
-          exportData(this._items)
-        }
-      })
-    )
-  }
-
-
-  ngOnDestroy(): void {
-    this._toolbarService.export.next(false)
-    this.subs.unsubscribe()
   }
 }

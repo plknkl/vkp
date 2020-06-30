@@ -16,7 +16,7 @@
     <div>
       <mat-form-field>
         <mat-label>{{'operation' | translate}}:</mat-label>
-        <mat-select formControlName="operation">
+        <mat-select formControlName="operation" required>
           <mat-option *ngFor="let operation of operations"
           [value]="operation.name">
             {{operation.name}}
