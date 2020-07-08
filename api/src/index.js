@@ -31,10 +31,10 @@ server.applyMiddleware({ app, path: '/graphql' })
 const httpServer = http.createServer(app)
 server.installSubscriptionHandlers(httpServer)
 
-sequelize.sync({ force: isTest }).then(async () => {
-  if (isTest) {
-    createStuff()
-  }
+sequelize.sync({ force: false }).then(async () => {
+//  if (isTest) {
+//    createStuff()
+//  }
   httpServer.listen({ port: 8082 }, () => {
     console.log('Server running on 8082...')
   })

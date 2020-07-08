@@ -10,7 +10,10 @@ export default {
   Query: {
     actors: async (_, __, { models }) => {
       const actors = await models.Actor.findAll({
-        order: [['updatedAt', 'DESC']]
+        order: [['updatedAt', 'DESC']],
+        include: [
+          models.Operation
+        ]
       })
       return actors
     },

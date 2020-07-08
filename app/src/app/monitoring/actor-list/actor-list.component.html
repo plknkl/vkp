@@ -1,7 +1,6 @@
 <main>
   <div class="actor-line" *ngFor="let item of items">
-    <mat-grid-list cols="4" rowHeight="2:1">
-      <mat-grid-tile [colspan]=3 [rowspan]=1>
+      <div class="monitor-row">
         <mat-card class="actor-card"
           (click)="edit(item)">
           <mat-card-title>
@@ -11,12 +10,9 @@
             {{item.status | translate}}
           </mat-card-subtitle>
         </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
         <div class="mat-subheading-2 timer">
           {{item.updatedAgo.hours()}}:{{item.updatedAgo.minutes()}}:{{item.updatedAgo.seconds()}}
         </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
   </div>
 </main>

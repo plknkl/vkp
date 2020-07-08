@@ -4,7 +4,6 @@ export const GET_OPERATIONS = gql`
   query {
     operations {
       name
-      description
     }
   }
 `
@@ -13,16 +12,14 @@ export const GET_OPERATION = gql`
   query operation($name: String!){
     operation(name: $name) {
       name
-      description
     }
   }
 `
 
 export const CREATE_OPERATION = gql`
-  mutation createOperation($name: String!, $description: String!){
-    createOperation(name: $name, description: $description) {
+  mutation createOperation($name: String!){
+    createOperation(name: $name) {
       name
-      description
     }
   }
 `
@@ -34,10 +31,9 @@ export const DELETE_OPERATION = gql`
 `
 
 export const UPDATE_OPERATION = gql`
-  mutation updateOperation($oldName: String!, $newName: String!, $description: String){
-    updateOperation(oldName: $oldName, newName: $newName, description: $description) {
+  mutation updateOperation($oldName: String!, $newName: String!){
+    updateOperation(oldName: $oldName, newName: $newName) {
       name
-      description
     }
   }
 `

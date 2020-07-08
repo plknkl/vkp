@@ -20,17 +20,15 @@ export default {
     createOperation: async (_, { name, description }) => {
       const operation = await models.Operation.create(
         {
-          name,
-          description
+          name
         }
       )
       return operation
     },
 
-    updateOperation: async (_, { oldName, newName, description }) => {
+    updateOperation: async (_, { oldName, newName }) => {
       const operation = await findOperationByName(oldName, true)
       operation.name = newName
-      operation.description = description
       await operation.save()
       return operation
     },

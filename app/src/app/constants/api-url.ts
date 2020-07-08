@@ -9,7 +9,8 @@ const ws = new WebSocketLink({
     })
 
 export const errorSubject = new Subject()
-const error = onError(() => {
+const error = onError((err) => {
+    console.log(err)
     errorSubject.next()
   }
 )

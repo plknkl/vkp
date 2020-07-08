@@ -13,13 +13,6 @@ const operation = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
     unit: {
       type: DataTypes.ENUM(operationUnits),
       allowNull: false,

@@ -25,7 +25,6 @@ export class OperationEditComponent implements OnInit {
   ) {
     this.operationForm = this._formBuilder.group({
       name: [''],
-      description: [''],
     })
   }
 
@@ -35,7 +34,7 @@ export class OperationEditComponent implements OnInit {
     ).subscribe((item: Operation) => {
         if (item) {
           this.currentItem = item
-          this.operationForm.setValue({name: item.name, description: item.description})
+          this.operationForm.setValue({name: item.name})
           this._toolbarService.changeTitle('edit')
         } else {
           this._toolbarService.changeTitle('new')
@@ -47,14 +46,12 @@ export class OperationEditComponent implements OnInit {
     if (this.currentItem) {
       this._operationService.updateOperation$(
         this.currentItem.name,
-        this.operationForm.value.name, 
-        this.operationForm.value.description).subscribe(() => {
+        this.operationForm.value.name).subscribe(() => {
           this._router.navigate(['administration', OPERATION])
         })
     } else {
       this._operationService.createOperation$(
-        this.operationForm.value.name, 
-        this.operationForm.value.description).subscribe(() => {
+        this.operationForm.value.name).subscribe(() => {
           this._router.navigate(['administration', OPERATION])
         })
     }

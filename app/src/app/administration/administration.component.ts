@@ -97,9 +97,18 @@ export class AdministrationComponent implements OnInit, OnDestroy {
       case ACTOR:
         this._toolbarService.changeTitle('actor admin')
         this._actorService.getActorList$().subscribe((actors: Actor[]) => {
+          actors.sort(function(a, b) {
+            const keyA = `${a.operation.name} ${a.name}`
+            const keyB = `${b.operation.name} ${b.name}`
+            // Compare
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+          });
           this.items = actors.map((actor) => {
             return {
               name: actor.name,
+              operation: actor.operation.name
             }
           })
         })
@@ -112,7 +121,6 @@ export class AdministrationComponent implements OnInit, OnDestroy {
             this.items = operations.map((operation) => {
               return {
                 name: operation.name,
-                description: operation.description,
               }
             })
           })

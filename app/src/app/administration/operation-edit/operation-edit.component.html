@@ -3,7 +3,7 @@
     {{'operation edit' | translate | titlecase}}
   </mat-card-title>
   
-  <form [formGroup]="operationForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="operationForm">
   <mat-card-content>
 
     <div>
@@ -13,17 +13,10 @@
       </mat-form-field>
     </div>
 
-    <div>
-      <mat-form-field>
-        <mat-label>{{'description' | translate}}:</mat-label>
-        <input autocomplete="off" matInput formControlName="description" required>
-      </mat-form-field>
-    </div>
-
   </mat-card-content>
   <mat-card-actions>
       <button *ngIf="currentItem" (click)="onDelete()" class="delete" mat-stroked-button color="warn">Delete</button>
-      <button class="submit" mat-stroked-button type="submit" [disabled]="!operationForm.valid">{{'ok' | translate | titlecase}}</button>
+      <button class="submit" (click)="onSubmit()" mat-stroked-button type="submit" [disabled]="!operationForm.valid">{{'ok' | translate | titlecase}}</button>
   </mat-card-actions>
   </form>
 </mat-card>
