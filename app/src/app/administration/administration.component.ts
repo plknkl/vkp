@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ToolbarService } from '../services/toolbar.service'
-import { ARTICLE, ACTOR, OPERATION, SHIFT } from '../constants/routing-map'
+import { ARTICLE, ACTOR, OPERATION, SHIFT, SHOP } from '../constants/routing-map'
 import { ActorService } from '../services/actor.service'
 import { Actor } from '../models/actor'
 import { OperationService } from '../services/operation.service'
 import { ShiftService } from '../services/shift.service'
+import { ShopService } from '../services/shop.service'
 import { Operation } from '../models/operation'
 import { ArticleService } from '../services/article.service'
 import { Article } from '../models/article'
 import { Shift } from '../models/shift'
+import { Shop } from '../models/shop'
 
 @Component({
   selector: 'app-administration',
@@ -28,6 +30,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
     private _operationService: OperationService,
     private _articleService: ArticleService,
     private _shiftService: ShiftService,
+    private _shopService: ShopService,
   ) {}
 
   ngOnInit(): void {
@@ -45,12 +48,15 @@ export class AdministrationComponent implements OnInit, OnDestroy {
         case SHIFT:
           this._pageSwitch(SHIFT)
           break;
+        case SHOP:
+          this._pageSwitch(SHOP)
+          break;
         default:
           this._pageSwitch(ARTICLE)
           break;
       }
     })
-    this._toolbarService.addButtons([ARTICLE, ACTOR, OPERATION, SHIFT])
+    this._toolbarService.addButtons([ARTICLE, ACTOR, OPERATION, SHIFT, SHOP])
     this._toolbarService.buttonClick.subscribe((btn: string) => {
       this._pageSwitch(btn)
     })
@@ -66,6 +72,9 @@ export class AdministrationComponent implements OnInit, OnDestroy {
     }
     if(this._currentPage == SHIFT) {
       this._router.navigate(['administration', SHIFT, item.name], {state: {data: item}})
+    }
+    if(this._currentPage == SHOP) {
+      this._router.navigate(['administration', SHOP, item.name], {state: {data: item}})
     }
     if(this._currentPage == ACTOR) {
       this._router.navigate(['administration', ACTOR, item.name], {state: {data: item}})
@@ -88,6 +97,9 @@ export class AdministrationComponent implements OnInit, OnDestroy {
     if(this._currentPage == SHIFT) {
       this._router.navigate(['administration', SHIFT, 'new'])
     }
+    if(this._currentPage == SHOP) {
+      this._router.navigate(['administration', SHOP, 'new'])
+    }
   }
 
 
@@ -108,7 +120,8 @@ export class AdministrationComponent implements OnInit, OnDestroy {
           this.items = actors.map((actor) => {
             return {
               name: actor.name,
-              operation: actor.operation.name
+              operation: actor.operation.name,
+              shop: actor.shop.name
             }
           })
         })
@@ -141,6 +154,16 @@ export class AdministrationComponent implements OnInit, OnDestroy {
           this.items = shifts.map((shift) => {
             return {
               name: shift.name,
+            }
+          })
+        })
+        break
+      case SHOP:
+        this._shopService.getShops$().subscribe((shops: Shop[]) => {
+          this._toolbarService.changeTitle('shop admin')
+          this.items = shops.map((shop) => {
+            return {
+              name: shop.name,
             }
           })
         })

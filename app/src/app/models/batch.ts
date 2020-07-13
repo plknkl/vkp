@@ -1,7 +1,7 @@
 import { Article } from './article'
 
 export interface Batch {
-  businessId: string
+  details: Object
   name: string
   article: Article
 }

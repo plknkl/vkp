@@ -85,7 +85,6 @@ export class JobListComponent implements OnInit, OnDestroy {
 
         this._items = this._items.filter((item) => {
           return (
-            item.batch.businessId !== job.batch.businessId &&
             item.startedAt !== job.startedAt
           )
         })

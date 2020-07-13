@@ -10,6 +10,7 @@ export default gql`
     createActor(
       name: String!
       operationName: String!
+      shopName: String!
     ): Actor!
 
     deleteActor(
@@ -20,6 +21,7 @@ export default gql`
       oldName: String!
       newName: String!
       operationName: String!
+      shopName: String!
     ): Actor!
 
     updateActorStatus(
@@ -61,6 +63,7 @@ export default gql`
     name: String!
     status: String!
     operation: Operation
+    shop: Shop
     currentJob: Job
     updatedAt: Date
   }

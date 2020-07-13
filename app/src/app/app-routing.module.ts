@@ -10,6 +10,7 @@ import { OperationEditComponent } from './administration/operation-edit/operatio
 import { ActorEditComponent } from './administration/actor-edit/actor-edit.component'
 import { ArticleEditComponent } from './administration/article-edit/article-edit.component'
 import { ShiftEditComponent } from './administration/shift-edit/shift-edit.component'
+import { ShopEditComponent } from './administration/shop-edit/shop-edit.component'
 import { Role } from './models/role'
 import { AuthGuard } from './utils/auth.guard'
 
@@ -59,6 +60,12 @@ const routes: Routes = [
   {
     path: 'administration/shift/:shift',
     component: ShiftEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+  {
+    path: 'administration/shop/:shop',
+    component: ShopEditComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },

@@ -16,6 +16,7 @@ const models = {
   Batch: sequelize.import('./batch'),
   Operation: sequelize.import('./operation'),
   Shift: sequelize.import('./shift'),
+  Shop: sequelize.import('./shop'),
   Job: sequelize.import('./job'),
   Log: sequelize.import('./log')
 }

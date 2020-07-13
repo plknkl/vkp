@@ -18,6 +18,7 @@ import { OperationEditComponent } from './operation-edit/operation-edit.componen
 import { ActorEditComponent } from './actor-edit/actor-edit.component'
 import { ArticleEditComponent } from './article-edit/article-edit.component'
 import { ShiftEditComponent } from './shift-edit/shift-edit.component'
+import { ShopEditComponent } from './shop-edit/shop-edit.component'
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -29,7 +30,8 @@ export function createTranslateLoader(http: HttpClient) {
     OperationEditComponent,
     ActorEditComponent,
     ArticleEditComponent,
-    ShiftEditComponent
+    ShiftEditComponent,
+    ShopEditComponent
   ],
   imports: [
     CommonModule,

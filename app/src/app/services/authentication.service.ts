@@ -13,7 +13,10 @@ export class AuthenticationService {
 
   constructor(
     private _router: Router,
-  ) { }
+  ) {
+    const currentRole = localStorage.getItem('role')
+    this.currentRole$.next(currentRole)
+  }
 
   login(inputStr: String): void {
     if (inputStr == 'vkpadmin') {

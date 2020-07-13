@@ -2,6 +2,7 @@ import { Actor } from '../models/actor'
 import { Log } from '../models/log'
 import { Operation } from '../models/operation'
 import { Shift } from '../models/shift'
+import { Shop } from '../models/shop'
 import { Batch } from '../models/batch'
 import { Article } from '../models/article'
 import { Job } from '../models/job'
@@ -54,6 +55,14 @@ export interface ShiftData {
 
 export interface ShiftsData {
   shifts: Shift[]
+}
+
+export interface ShopData {
+  shop: Shop
+}
+
+export interface ShopsData {
+  shops: Shop[]
 }
 
 export interface BatchesData {

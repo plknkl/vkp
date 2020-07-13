@@ -2,15 +2,25 @@ import gql from 'graphql-tag'
 
 export const CREATE_ACTOR = gql`
 mutation createActor($name: String!, $operationName: String!) {
-  createActor(name: $name, operationName: $operationName) {
+  createActor(name: $name, operationName: $operationName, shopName: $shopName) {
     name
   }
 }
 `
 
 export const UPDATE_ACTOR = gql`
-mutation updateActor($oldName: String!, $newName: String!, $operationName: String!) {
-  updateActor(oldName: $oldName, newName: $newName, operationName: $operationName) {
+mutation updateActor(
+  $oldName: String!,
+  $newName: String!,
+  $operationName: String!,
+  $shopName: String!,
+) {
+  updateActor(
+    oldName: $oldName,
+    newName: $newName,
+    operationName: $operationName,
+    shopName: $shopName
+  ) {
     name
   }
 }
@@ -77,6 +87,9 @@ query {
     operation {
       name
     }
+    shop {
+      name
+    }
     updatedAt
   }
 }
@@ -88,6 +101,9 @@ query actor($actorName: String!) {
     name
     status
     operation {
+      name
+    }
+    shop {
       name
     }
   }

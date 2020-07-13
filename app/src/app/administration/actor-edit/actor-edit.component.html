@@ -25,6 +25,18 @@
       </mat-form-field>
     </div>
     
+    <div>
+      <mat-form-field>
+        <mat-label>{{'shop' | translate}}:</mat-label>
+        <mat-select formControlName="shop" required>
+          <mat-option *ngFor="let shop of shops"
+          [value]="shop.name">
+            {{shop.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </mat-card-content>
   <mat-card-actions>
       <button *ngIf="currentItem" (click)="onDelete()" class="delete" mat-stroked-button color="warn">Delete</button>

@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>
+    {{'shop edit' | translate | titlecase}} 
+  </mat-card-title>
+  
+  <form [formGroup]="shopForm" (ngSubmit)="onSubmit()">
+  <mat-card-content>
+
+    <div>
+      <mat-form-field>
+        <mat-label>{{'name' | translate | titlecase }}:</mat-label>
+        <input autocomplete="off" matInput formControlName="name" required>
+      </mat-form-field>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+      <button *ngIf="currentItem" (click)="onDelete()" class="delete" mat-stroked-button color="warn">Delete</button>
+      <button class="submit" mat-stroked-button type="submit" [disabled]="!shopForm.valid">{{'ok' | translate | titlecase}}</button>
+  </mat-card-actions>
+  </form>
+</mat-card>

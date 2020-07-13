@@ -40,6 +40,13 @@ const findShiftByName = async (shiftName, model = false) => {
   return model ? shift : shift.dataValues
 }
 
+const findShopByName = async (shopName, model = false) => {
+  const shop = await models.Shop.findOne({
+    where: { name: shopName }
+  })
+  return model ? shop : shop.dataValues
+}
+
 const findJob = async (id, model = false) => {
   const job = await models.Job.findOne({
     where: { id },
@@ -135,6 +142,7 @@ export {
   findOperation,
   findOperationByName,
   findShiftByName,
+  findShopByName,
   findActorsJob,
   createNewJob,
   interruptActorsJob,

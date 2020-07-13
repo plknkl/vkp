@@ -7,7 +7,6 @@ export function exportData(items: Job[]) {
     return  {
       Shift: item.shift.name,
       Actor: item.actor.name,
-      Batch: item.batch.businessId,
       Article: item.batch.article.name,
       Quantity: item.quantity,
       Started: item.startedAt,

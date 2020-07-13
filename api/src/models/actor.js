@@ -38,6 +38,7 @@ const actor = (sequelize, DataTypes) => {
 
   Actor.associate = models => {
     Actor.belongsTo(models.Operation)
+    Actor.belongsTo(models.Shop)
     Actor.hasMany(models.Job)
   }
 

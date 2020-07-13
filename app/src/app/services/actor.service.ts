@@ -30,24 +30,26 @@ export class ActorService {
   constructor(private apollo: Apollo) {}
 
   @ErrorCatch
-  public createActor$(name: string, operationName: string) {
+  public createActor$(name: string, operationName: string, shopName: string) {
     return this.apollo.mutate<ActorData>({
       mutation: CREATE_ACTOR,
       variables: {
         name,
-        operationName
+        operationName,
+        shopName
       }
     })
   }
 
   @ErrorCatch
-  public updateActor$(oldName: string, newName: string, operationName: string) {
+  public updateActor$(oldName: string, newName: string, operationName: string, shopName: string) {
     return this.apollo.mutate<ActorData>({
       mutation: UPDATE_ACTOR,
       variables: {
         oldName,
         newName,
-        operationName
+        operationName,
+        shopName
       }
     })
   }

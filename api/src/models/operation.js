@@ -25,6 +25,7 @@ const operation = (sequelize, DataTypes) => {
 
   Operation.associate = models => {
     Operation.hasMany(models.Actor)
+    Operation.belongsTo(models.Shop)
   }
 
   return Operation

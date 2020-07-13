@@ -3,7 +3,7 @@ import pubsub, { EVENTS } from '../subscription'
 import {
   findActor, findArticleByName, findOperation,
   createNewJob, findOperationByName, interruptActorsJob,
-  finishActorsJob, createBatch, findShiftByName
+  finishActorsJob, createBatch, findShiftByName, findShopByName
 } from './_utils'
 
 export default {
@@ -12,7 +12,8 @@ export default {
       const actors = await models.Actor.findAll({
         order: [['updatedAt', 'DESC']],
         include: [
-          models.Operation
+          models.Operation,
+          models.Shop
         ]
       })
       return actors
@@ -21,7 +22,8 @@ export default {
       const actor = await models.Actor.findOne({
         where: { name },
         include: [
-          models.Operation
+          models.Operation,
+          models.Shop
         ]
       })
       return actor
@@ -29,21 +31,25 @@ export default {
   },
 
   Mutation: {
-    createActor: async (_, { name, operationName }, { models }) => {
+    createActor: async (_, { name, operationName, shopName }, { models }) => {
       const operation = await findOperationByName(operationName)
+      const shop = await findShopByName(shopName)
       const actor = await models.Actor.create({
         name,
         operationId: operation.id,
+        shopId: shop.id,
         status: 'idle'
       })
       return actor
     },
 
-    updateActor: async (_, { oldName, newName, operationName }, { models }) => {
+    updateActor: async (_, { oldName, newName, operationName, shopName }, { models }) => {
       const operation = await findOperationByName(operationName)
+      const shop = await findShopByName(shopName)
       const actor = await findActor(oldName, true)
       actor.name = newName
       actor.operationId = operation.id
+      actor.shopId = shop.id
       await actor.save()
       return actor
     },

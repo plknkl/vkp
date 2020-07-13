@@ -4,6 +4,7 @@ import actorSchema from './actor'
 import batchSchema from './batch'
 import operationSchema from './operation'
 import shiftSchema from './shift'
+import shopSchema from './shop'
 import jobSchema from './job'
 import logSchema from './log'
 
@@ -32,6 +33,7 @@ export default [
   batchSchema,
   operationSchema,
   shiftSchema,
+  shopSchema,
   jobSchema,
   logSchema
 ]

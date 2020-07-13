@@ -5,6 +5,7 @@ import actorResolvers from './actor'
 import batchResolvers from './batch'
 import operationResolvers from './operation'
 import shiftResolvers from './shift'
+import shopResolvers from './shop'
 import jobResolvers from './job'
 import logResolvers from './log'
 
@@ -19,6 +20,7 @@ export default [
   batchResolvers,
   operationResolvers,
   shiftResolvers,
+  shopResolvers,
   jobResolvers,
   logResolvers
 ]

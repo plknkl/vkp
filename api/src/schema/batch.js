@@ -6,7 +6,7 @@ export default gql`
   }
 
   type Batch {
-    businessId: Int!
-    article: Article!
+    details: String
+    article: Article
   }
 `
