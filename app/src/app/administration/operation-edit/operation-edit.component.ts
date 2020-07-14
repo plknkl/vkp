@@ -6,6 +6,14 @@ import { OperationService } from '../../services/operation.service'
 import { Operation } from '../../models/operation'
 import { OPERATION } from '../../constants/routing-map'
 import { switchMap } from 'rxjs/operators'
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+
+
+
+export interface Item {
+  name: string;
+}
 
 @Component({
   selector: 'app-operation-edit',
@@ -15,6 +23,13 @@ import { switchMap } from 'rxjs/operators'
 export class OperationEditComponent implements OnInit {
   operationForm: FormGroup
   currentItem: Operation
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  items: Item[] = [
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -34,6 +49,8 @@ export class OperationEditComponent implements OnInit {
     ).subscribe((item: Operation) => {
         if (item) {
           this.currentItem = item
+          console.log(item.items)
+          this.items = JSON.parse(item.items)
           this.operationForm.setValue({name: item.name})
           this._toolbarService.changeTitle('edit')
         } else {
@@ -43,15 +60,18 @@ export class OperationEditComponent implements OnInit {
   }
 
   onSubmit() {
+    const stringItems = JSON.stringify(this.items)
     if (this.currentItem) {
       this._operationService.updateOperation$(
         this.currentItem.name,
-        this.operationForm.value.name).subscribe(() => {
+        this.operationForm.value.name,
+        stringItems).subscribe(() => {
           this._router.navigate(['administration', OPERATION])
         })
     } else {
       this._operationService.createOperation$(
-        this.operationForm.value.name).subscribe(() => {
+        this.operationForm.value.name,
+        stringItems).subscribe(() => {
           this._router.navigate(['administration', OPERATION])
         })
     }
@@ -61,6 +81,29 @@ export class OperationEditComponent implements OnInit {
     this._operationService.deleteOperation$(this.currentItem).subscribe(() => {
       this._router.navigate(['administration', OPERATION])
     })
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.items.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(item: Item): void {
+    const index = this.items.indexOf(item);
+
+    if (index >= 0) {
+      this.items.splice(index, 1);
+    }
   }
 
 }

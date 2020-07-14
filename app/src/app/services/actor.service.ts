@@ -115,16 +115,14 @@ export class ActorService {
   @ErrorCatch
   public startActorProcess$(
     actorName: string,
-    batchBusinessId: string,
-    articleName: string,
+    details: string,
     shiftName: string
   ) {
     return this.apollo.mutate({
       mutation: START_ACTOR_PROCESS,
       variables: {
         actorName,
-        batchBusinessId,
-        articleName,
+        details,
         shiftName
       },
     })

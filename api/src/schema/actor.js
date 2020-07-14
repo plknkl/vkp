@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express'
 
 export default gql`
   extend type Query {
-    actors: [Actor]
+    actors(shopName: String): [Actor]
     actor(name: String!): Actor
   }
 
@@ -36,8 +36,7 @@ export default gql`
 
     startActorProcess(
       actorName: String!
-      batchBusinessId: String!
-      articleName: String!,
+      details: String!
       shiftName: String!
     ): Actor!
 

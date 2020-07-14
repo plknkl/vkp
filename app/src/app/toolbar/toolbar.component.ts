@@ -28,7 +28,6 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authenticationService.currentRole$.subscribe((zz) => {console.log(zz)})
   }
 
   onMonitoringClick() {

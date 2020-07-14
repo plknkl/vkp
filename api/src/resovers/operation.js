@@ -17,18 +17,20 @@ export default {
     }
   },
   Mutation: {
-    createOperation: async (_, { name, description }) => {
+    createOperation: async (_, { name, items }) => {
       const operation = await models.Operation.create(
         {
-          name
+          name,
+          items
         }
       )
       return operation
     },
 
-    updateOperation: async (_, { oldName, newName }) => {
+    updateOperation: async (_, { oldName, newName, items }) => {
       const operation = await findOperationByName(oldName, true)
       operation.name = newName
+      operation.items = items
       await operation.save()
       return operation
     },

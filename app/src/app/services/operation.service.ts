@@ -50,11 +50,13 @@ export class OperationService {
   
   public createOperation$(
     name: string,
+    items: string
   ) {
     return this.apollo.mutate({
       mutation: CREATE_OPERATION,
       variables: {
         name,
+        items
       },
     })
   }
@@ -62,12 +64,14 @@ export class OperationService {
   public updateOperation$(
     oldName: string,
     newName: string,
+    items: string
   ) {
     return this.apollo.mutate({
       mutation: UPDATE_OPERATION,
       variables: {
         oldName,
         newName,
+        items
       },
     })
   }

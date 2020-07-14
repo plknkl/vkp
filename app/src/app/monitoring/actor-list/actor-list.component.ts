@@ -45,7 +45,6 @@ export class ActorListComponent implements OnInit, OnDestroy {
     this._subscription.add(this.actorService
       .updatedActorSubscription$()
       .subscribe((actor: Actor) => {
-        console.log(actor)
         this._updateActor(actor)
       }))
   }

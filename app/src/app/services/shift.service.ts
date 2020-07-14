@@ -50,11 +50,13 @@ export class ShiftService {
   
   public createShift$(
     name: string,
+    shopName: string
   ) {
     return this.apollo.mutate({
       mutation: CREATE_SHIFT,
       variables: {
         name,
+        shopName
       },
     })
   }
@@ -62,12 +64,14 @@ export class ShiftService {
   public updateShift$(
     oldName: string,
     newName: string,
+    shopName: string
   ) {
     return this.apollo.mutate({
       mutation: UPDATE_SHIFT,
       variables: {
         oldName,
         newName,
+        shopName
       },
     })
   }

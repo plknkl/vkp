@@ -28,8 +28,8 @@ export class JobListComponent implements OnInit, OnDestroy {
     this._toolbarService.changeTitle('jobs')
     this._toolbarService.export.next(true)
     this.displayedColumns = [
-      'shift', 'actorName',
-      'batchNum', 'article', 'quantity',
+      'shift', 'actorName', 'quantity',
+      'operation', 'item', 'batchNum',
       'fromDate', 'toDate'
     ];
 
@@ -61,6 +61,11 @@ export class JobListComponent implements OnInit, OnDestroy {
       this._jobService
       .getJobList$(period)
       .subscribe((jobs: Job[]) => {
+        //unpack details
+        console.log(jobs)
+        jobs.forEach(item => {
+          item.batch.details = JSON.parse(item.batch.details)
+        })
         // filter out jobs with missing models which may have no longer exist
         // this should be managed in some better way
         this._items = jobs.filter(item => {

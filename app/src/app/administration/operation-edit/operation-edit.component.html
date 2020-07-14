@@ -12,6 +12,23 @@
         <input autocomplete="off" matInput formControlName="name" required>
       </mat-form-field>
     </div>
+ 
+    <div>
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Item selection">
+          <mat-chip *ngFor="let item of items" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(item)">
+            {{item.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="New item..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
 
   </mat-card-content>
   <mat-card-actions>

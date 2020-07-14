@@ -20,6 +20,10 @@ const operation = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true
       }
+    },
+    items: {
+      type: DataTypes.JSON,
+      unique: false
     }
   })
 

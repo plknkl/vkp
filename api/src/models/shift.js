@@ -12,6 +12,7 @@ const shift = (sequelize, DataTypes) => {
 
   Shift.associate = models => {
     Shift.hasMany(models.Job)
+    Shift.belongsTo(models.Shop)
   }
 
   return Shift

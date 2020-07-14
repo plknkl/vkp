@@ -44,6 +44,9 @@ const findShopByName = async (shopName, model = false) => {
   const shop = await models.Shop.findOne({
     where: { name: shopName }
   })
+  if (!shop) {
+    return null
+  }
   return model ? shop : shop.dataValues
 }
 
@@ -110,10 +113,9 @@ const interruptActorsJob = async (actor) => {
   }
 }
 
-const createBatch = async (businessId, articleId) => {
+const createBatch = async (details) => {
   const batch = await models.Batch.create({
-    businessId,
-    articleId
+    details
   })
 
   return batch

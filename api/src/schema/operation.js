@@ -9,11 +9,13 @@ export default gql`
   extend type Mutation { 
     createOperation(
       name: String!
+      items: String
     ): Operation!
 
     updateOperation(
       oldName: String!
       newName: String!
+      items: String
     ): Operation!
     
     deleteOperation(
@@ -24,5 +26,6 @@ export default gql`
   type Operation {
     name: String
     unit: String
+    items: String
   }
 `

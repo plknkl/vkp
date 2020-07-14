@@ -14,6 +14,7 @@ const shop = (sequelize, DataTypes) => {
 
   Shop.associate = models => {
     Shop.hasMany(models.Actor)
+    Shop.hasMany(models.Shift)
   }
 
   return Shop

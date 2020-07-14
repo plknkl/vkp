@@ -1,4 +1,5 @@
 import pubsub, { EVENTS } from '../subscription'
+import { Op } from 'sequelize'
 
 import {
   findActor, findArticleByName, findOperation,
@@ -8,14 +9,34 @@ import {
 
 export default {
   Query: {
-    actors: async (_, __, { models }) => {
-      const actors = await models.Actor.findAll({
-        order: [['updatedAt', 'DESC']],
-        include: [
-          models.Operation,
-          models.Shop
-        ]
-      })
+    actors: async (_, { shopName }, { models }) => {
+      var actors = []
+      if(shopName) {
+        const shop = await findShopByName(shopName) 
+        if(!shop) {
+          return actors
+        }
+        actors = await models.Actor.findAll({
+          order: [['updatedAt', 'DESC']],
+          include: [
+            models.Operation,
+            models.Shop
+          ],
+          where: {
+            shopId: {
+              [Op.eq]: shop.id
+            }
+          }
+        })
+      } else {
+        actors = await models.Actor.findAll({
+          order: [['updatedAt', 'DESC']],
+          include: [
+            models.Operation,
+            models.Shop
+          ]
+        })
+      }
       return actors
     },
     actor: async (_, { name }, { models }) => {
@@ -73,7 +94,7 @@ export default {
       return actor
     },
 
-    startActorProcess: async (_, { actorName, batchBusinessId, articleName, shiftName }, { models }) => {
+    startActorProcess: async (_, { actorName, details, shiftName }, { models }) => {
       // find the actor
       let actor = await findActor(actorName, true)
 
@@ -85,13 +106,13 @@ export default {
       const operation = await findOperation(actor.operationId)
 
       // find article
-      const article = await findArticleByName(articleName)
+      // const article = await findArticleByName(articleName)
 
       // find shift
       const shift = await findShiftByName(shiftName)
 
       // create new batch
-      const batch = await createBatch(batchBusinessId, article.id)
+      const batch = await createBatch(details)
 
       // create a new Job
       const job = await createNewJob(actor.id, batch.id, operation.id, shift.id)

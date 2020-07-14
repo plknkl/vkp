@@ -6,14 +6,14 @@ query jobs($period: Int){
     startedAt
     endedAt
     quantity
+    operation {
+      name
+    }
     actor {
       name
     }
     batch { 
-      businessId
-      article { 
-        name
-      }
+      details
     }
     shift {
       name
@@ -31,10 +31,7 @@ subscription {
       name
     }
     batch { 
-      businessId
-      article { 
-        name
-      }
+      details
     }
     shift {
       name

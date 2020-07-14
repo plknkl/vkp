@@ -13,12 +13,22 @@
       
       <ng-container matColumnDef="batchNum">
         <th mat-header-cell *matHeaderCellDef> {{'batch' | translate | titlecase}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.batch.businessId}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.batch.details.businessId}} </td>
       </ng-container>
       
       <ng-container matColumnDef="article">
         <th mat-header-cell *matHeaderCellDef> {{'article' | translate | titlecase}} </th>
         <td mat-cell *matCellDef="let element"> {{element.batch.article.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef> {{'item' | translate | titlecase}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.batch.details.item}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="operation">
+        <th mat-header-cell *matHeaderCellDef> {{'operation' | translate | titlecase}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.operation.name}} </td>
       </ng-container>
       
       <ng-container matColumnDef="quantity">

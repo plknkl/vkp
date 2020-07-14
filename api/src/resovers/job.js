@@ -37,10 +37,9 @@ export default {
       const jobs = await models.Job.findAll({
         order: [['createdAt', 'DESC']],
         where: periodFilter,
-        include: [models.Actor, models.Shift,
+        include: [models.Actor, models.Shift, models.Operation,
           {
             model: models.Batch,
-            include: models.Article
           }
         ]
       })

@@ -7,6 +7,7 @@ import { Actor } from '../../models/actor'
 import { ActorService } from '../../services/actor.service'
 import { ArticleService } from '../../services/article.service'
 import { ShiftService } from '../../services/shift.service'
+import { OperationService } from '../../services/operation.service'
 import { ToolbarService } from '../../services/toolbar.service'
 import { NewJobDialogComponent } from '../new-job-dialog/new-job-dialog.component'
 import { FinishJobDialogComponent } from '../finish-job-dialog/finish-job-dialog.component'
@@ -28,6 +29,7 @@ export class ActorEditComponent implements OnDestroy, OnInit {
     private toolbarservice: ToolbarService,
     private _articleService: ArticleService,
     private _shiftService: ShiftService,
+    private _operationService: OperationService,
     public dialog: MatDialog
   ) {}
 
@@ -70,19 +72,27 @@ export class ActorEditComponent implements OnDestroy, OnInit {
   newJobDialog(actor: Actor): void {
     zip(
      this._articleService.getArticles$(),
-     this._shiftService.getShifts$()
-    ).subscribe(([articles, shifts]) => {
+     this._shiftService.getShifts$(),
+     this._operationService.getOperations$()
+    ).subscribe(([articles, shifts, operations]) => {
+      console.log(operations)
+      const items = JSON.parse(operations[0].items)
       const dialogRef = this.dialog.open(NewJobDialogComponent, {
         width: '250px',
-        data: { articles, shifts },
+        data: { articles, shifts, items },
       })
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.actorService.startActorProcess$(
             actor.name,
-            result.batchNumber,
-            result.articleName,
+            // details
+            JSON.stringify(
+              {
+                businessId: result.batchNumber,
+                item: result.itemName
+              }
+            ),
             result.shiftName
           ).subscribe(
             () => {
