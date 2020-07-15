@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators'
-import { Shop } from '../models/shop'
 import { 
   ShopsData,
   ShopData 
@@ -73,12 +72,12 @@ export class ShopService {
   }
 
   public deleteShop$(
-    item: Shop,
+    name: string,
   ) {
     return this.apollo.mutate({
       mutation: DELETE_SHOP,
       variables: {
-        name: item.name
+        name
       },
     })
   }

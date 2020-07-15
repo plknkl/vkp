@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express'
 export default gql`
   extend type Query {
     actors(shopName: String): [Actor]
-    actor(name: String!): Actor
+    actor(name: String!, operationName: String!): Actor
   }
 
   extend type Mutation {
@@ -14,7 +14,8 @@ export default gql`
     ): Actor!
 
     deleteActor(
-      name: String!
+      name: String!,
+      operationName: String!
     ): Boolean!
 
     updateActor(
@@ -26,6 +27,7 @@ export default gql`
 
     updateActorStatus(
       name: String!
+      operationName: String!
       status: String!
     ): Actor!
 
@@ -36,21 +38,25 @@ export default gql`
 
     startActorProcess(
       actorName: String!
+      operationName: String!
       details: String!
       shiftName: String!
     ): Actor!
 
     interruptActorProcess(
       actorName: String!
+      operationName: String!
     ): Actor!
 
     finishActorProcess(
       actorName: String!
+      operationName: String!
       quantity: Int
     ): Actor!
 
     breakActor(
       actorName: String!
+      operationName: String!
     ): Actor!
   }
 

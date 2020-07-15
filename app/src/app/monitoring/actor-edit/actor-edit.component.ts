@@ -7,7 +7,6 @@ import { Actor } from '../../models/actor'
 import { ActorService } from '../../services/actor.service'
 import { ArticleService } from '../../services/article.service'
 import { ShiftService } from '../../services/shift.service'
-import { OperationService } from '../../services/operation.service'
 import { ToolbarService } from '../../services/toolbar.service'
 import { NewJobDialogComponent } from '../new-job-dialog/new-job-dialog.component'
 import { FinishJobDialogComponent } from '../finish-job-dialog/finish-job-dialog.component'
@@ -29,13 +28,12 @@ export class ActorEditComponent implements OnDestroy, OnInit {
     private toolbarservice: ToolbarService,
     private _articleService: ArticleService,
     private _shiftService: ShiftService,
-    private _operationService: OperationService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this._paramsSubscription = this.route.params.subscribe((params: Params) => {
-      this.actor$ = this.actorService.getActor$(params.name).pipe(
+      this.actor$ = this.actorService.getActor$(params.name, params.operation).pipe(
         tap((actor: Actor) => {
           this.toolbarservice.changeDetails(actor.status)
         })
@@ -52,19 +50,31 @@ export class ActorEditComponent implements OnDestroy, OnInit {
   }
 
   onIdleClick(actor: Actor) {
-    this.actorService.updateActorStatus$(actor.name, 'idle').subscribe(() => {
+    this.actorService.updateActorStatus$(
+      actor.name, 
+      actor.operation.name,
+      'idle'
+    ).subscribe(() => {
       this.router.navigate([MONITORING])
     })
   }
 
   onMaintenanceClick(actor: Actor) {
-    this.actorService.updateActorStatus$(actor.name, 'maintenance').subscribe(() => {
+    this.actorService.updateActorStatus$(
+      actor.name, 
+      actor.operation.name,
+      'maintenance'
+    ).subscribe(() => {
       this.router.navigate([MONITORING])
     })
   }
 
   onBrokenClick(actor: Actor) {
-    this.actorService.updateActorStatus$(actor.name, 'broken').subscribe(() => {
+    this.actorService.updateActorStatus$(
+      actor.name, 
+      actor.operation.name,
+      'broken'
+    ).subscribe(() => {
       this.router.navigate([MONITORING])
     })
   }
@@ -72,11 +82,9 @@ export class ActorEditComponent implements OnDestroy, OnInit {
   newJobDialog(actor: Actor): void {
     zip(
      this._articleService.getArticles$(),
-     this._shiftService.getShifts$(),
-     this._operationService.getOperations$()
-    ).subscribe(([articles, shifts, operations]) => {
-      console.log(operations)
-      const items = JSON.parse(operations[0].items)
+     this._shiftService.getShifts$()
+    ).subscribe(([articles, shifts]) => {
+      const items = JSON.parse(actor.operation.items)
       const dialogRef = this.dialog.open(NewJobDialogComponent, {
         width: '250px',
         data: { articles, shifts, items },
@@ -86,6 +94,7 @@ export class ActorEditComponent implements OnDestroy, OnInit {
         if (result) {
           this.actorService.startActorProcess$(
             actor.name,
+            actor.operation.name,
             // details
             JSON.stringify(
               {
@@ -112,7 +121,9 @@ export class ActorEditComponent implements OnDestroy, OnInit {
     dialogRef.afterClosed().subscribe((result: number) => {
       if (result) {
         const quantity: number = +result
-        this.actorService.finishActorProcess$(actor.name, quantity).subscribe(() => {
+        this.actorService.finishActorProcess$(
+          actor.name, actor.operation.name, quantity
+        ).subscribe(() => {
           this.router.navigate([MONITORING])
         })
       }

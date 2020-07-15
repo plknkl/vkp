@@ -33,6 +33,10 @@ export class JobService {
       })
       .pipe(
         map((result) => {
+          result.data.jobs.forEach(item => {
+            // unpack details stringed object
+            item.batch.details = JSON.parse(item.batch.details as string)
+          })
           return result.data.jobs
         })
       )

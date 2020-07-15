@@ -27,8 +27,8 @@ mutation updateActor(
 `
 
 export const DELETE_ACTOR = gql`
-mutation deleteActor($name: String!) {
-  deleteActor(name: $name)
+mutation deleteActor($name: String!, $operationName: String!) {
+  deleteActor(name: $name, operationName: $operationName)
 }
 `
 
@@ -45,21 +45,26 @@ mutation update_machine {
 `
 
 export const UPDATE_ACTOR_STATUS = gql`
-mutation updateActorStatus($actorName: String!, $status: String!) {
-  updateActorStatus(name: $actorName, status: $status) {
+mutation updateActorStatus($actorName: String!, $operationName: String!, $status: String!) {
+  updateActorStatus(name: $actorName, operationName: $operationName, status: $status) {
     name
     status
+    operation {
+      name
+    }
   }
 }
 `
 export const START_ACTOR_PROCESS = gql`
 mutation startActorProcess(
     $actorName: String!, 
+    $operationName: String!, 
     $details: String!,
     $shiftName: String!
   ) {
   startActorProcess(
     actorName: $actorName,
+    operationName: $operationName,
     details: $details,
     shiftName: $shiftName
   ) {
@@ -69,10 +74,13 @@ mutation startActorProcess(
 }
 `
 export const FINISH_ACTOR_PROCESS = gql`
-mutation finishActorProcess($actorName: String!, $quantity: Int) {
-  finishActorProcess(actorName: $actorName, quantity: $quantity) {
+mutation finishActorProcess($actorName: String!, $operationName: String!, $quantity: Int) {
+  finishActorProcess(actorName: $actorName, operationName: $operationName, quantity: $quantity) {
     name
     status
+    operation {
+      name
+    }
   }
 }
 `
@@ -89,17 +97,23 @@ query actors($shop: String){
       name
     }
     updatedAt
+    currentJob {
+      batch {
+        details
+      }
+    }
   }
 }
 `
 
 export const GET_ACTOR = gql`
-query actor($actorName: String!) {
-  actor(name: $actorName) {
+query actor($actorName: String!, $operationName: String!) {
+  actor(name: $actorName, operationName: $operationName) {
     name
     status
     operation {
       name
+      items
     }
     shop {
       name
@@ -113,6 +127,9 @@ subscription {
   actorUpdated {
     name
     status
+    operation {
+      name
+    }
   }
 }
 `

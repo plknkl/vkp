@@ -4,7 +4,8 @@ import { Op } from 'sequelize'
 import {
   findActor, findArticleByName, findOperation,
   createNewJob, findOperationByName, interruptActorsJob,
-  finishActorsJob, createBatch, findShiftByName, findShopByName
+  finishActorsJob, createBatch, findShiftByName, findShopByName,
+  findActorsJob
 } from './_utils'
 
 export default {
@@ -37,18 +38,28 @@ export default {
           ]
         })
       }
-      return actors
+      return actors.map( async (actor) => {
+        const job = await findActorsJob(actor.id)
+        actor.currentJob = job
+        return actor
+      })
     },
-    actor: async (_, { name }, { models }) => {
+    actor: async (_, { name, operationName }, { models }) => {
+      if (name == 'new') {
+        return null
+      }
+      const operation = await findOperationByName(operationName)
       const actor = await models.Actor.findOne({
-        where: { name },
+        where: { name, operationId: operation.id },
         include: [
           models.Operation,
           models.Shop
         ]
       })
+      const job = await findActorsJob(actor.id)
+      actor.currentJob = job
       return actor
-    }
+    },
   },
 
   Mutation: {
@@ -75,28 +86,27 @@ export default {
       return actor
     },
 
-    deleteActor: async (_, { name }) => {
-      const actor = await findActor(name, true)
+    deleteActor: async (_, { name, operationName }) => {
+      const actor = await findActor(name, operationName, true)
       await actor.destroy()
       return true
     },
 
-    updateActorStatus: async (_, { name, status }, { models }) => {
-      const actor = await findActor(name, true)
+    updateActorStatus: async (_, { name, operationName, status }, { models }) => {
+      const actor = await findActor(name, operationName, true)
       actor.status = status
       await actor.save()
       await interruptActorsJob(actor)
 
-      console.log(actor)
       pubsub.publish(EVENTS.ACTOR.UPDATED, {
         actorUpdated: actor
       })
       return actor
     },
 
-    startActorProcess: async (_, { actorName, details, shiftName }, { models }) => {
+    startActorProcess: async (_, { actorName, operationName, details, shiftName }, { models }) => {
       // find the actor
-      let actor = await findActor(actorName, true)
+      let actor = await findActor(actorName, operationName, true)
 
       if (!actor.operationId) {
         throw new Error('The actor has no assigned operation.')
@@ -133,8 +143,8 @@ export default {
       return actor
     },
 
-    interruptActorProcess: async (_, { actorName }) => {
-      const actor = await findActor(actorName, true)
+    interruptActorProcess: async (_, { actorName, operationName }) => {
+      const actor = await findActor(actorName, operationName, true)
 
       actor.status = 'idle'
       await actor.save()
@@ -148,8 +158,8 @@ export default {
       return actor
     },
 
-    finishActorProcess: async (_, { actorName, quantity }) => {
-      const actor = await findActor(actorName, true)
+    finishActorProcess: async (_, { actorName, operationName, quantity }) => {
+      const actor = await findActor(actorName, operationName, true)
 
       actor.status = 'idle'
       await actor.save()
@@ -163,8 +173,8 @@ export default {
       return actor
     },
 
-    breakActor: async (_, { actorName }) => {
-      const actor = await findActor(actorName, true)
+    breakActor: async (_, { actorName, operationName }) => {
+      const actor = await findActor(actorName, operationName, true)
 
       actor.status = 'broken'
       await actor.save()

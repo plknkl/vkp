@@ -1,11 +1,18 @@
 import models from '../models'
 import pubsub, { EVENTS } from '../subscription'
 
-const findActor = async (name, model = false) => {
+const findActor = async (name, operationName, model = false) => {
+  const operation = await models.Operation.findOne({
+    where: {
+      name: operationName
+    }
+  })
   const actor = await models.Actor.findOne({
     where: {
-      name
-    }
+      name,
+      operationId: operation.id
+    },
+    include: [models.Operation]
   })
   return model ? actor : actor.dataValues
 }
@@ -73,8 +80,13 @@ const findArticleByName = async (articleName, model = false) => {
 const findActorsJob = async (actorId, model = false) => {
   const job = await models.Job.findOne({
     where: { actorId },
-    order: [['createdAt', 'DESC']]
+    order: [['createdAt', 'DESC']],
+    include: [models.Batch]
   })
+
+  if (!job) {
+    return null
+  }
 
   return model ? job : job.dataValues
 }

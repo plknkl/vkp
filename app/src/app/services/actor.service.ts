@@ -59,7 +59,8 @@ export class ActorService {
     return this.apollo.mutate({
       mutation: DELETE_ACTOR,
       variables: {
-        name: item.name
+        name: item.name,
+        operationName: item.operation.name
       },
     })
   }
@@ -72,6 +73,11 @@ export class ActorService {
       })
       .pipe(
         map((result) => {
+          result.data.actors.forEach( (actor) => {
+            if (actor.currentJob) {
+              actor.currentJob.batch.details = JSON.parse(actor.currentJob.batch.details as string)
+            }
+          })
           this._actorList = result.data.actors
           return result.data.actors
         })
@@ -79,12 +85,13 @@ export class ActorService {
   }
 
   @ErrorCatch
-  public getActor$(name: string) {
+  public getActor$(name: string, operationName: string) {
     return this.apollo
       .query<ActorData>({
         query: GET_ACTOR,
         variables: {
           actorName: name,
+          operationName
         },
       })
       .pipe(
@@ -94,19 +101,22 @@ export class ActorService {
       )
   }
 
-  public getActorFromName(name: string) {
+  public getActorFromName(name: string, operationName: string) {
     if (this._actorList.length === 0) {
       return null
     }
-    return this._actorList.find((x) => x.name === name)
+    return this._actorList.find(
+      (x) => (x.name === name) && (x.operation.name === operationName)
+    )
   }
 
   @ErrorCatch
-  public updateActorStatus$(actorName: string, status: string) {
+  public updateActorStatus$(actorName: string, operationName:string, status: string) {
     return this.apollo.mutate({
       mutation: UPDATE_ACTOR_STATUS,
       variables: {
         actorName,
+        operationName,
         status,
       },
     })
@@ -115,6 +125,7 @@ export class ActorService {
   @ErrorCatch
   public startActorProcess$(
     actorName: string,
+    operationName: string,
     details: string,
     shiftName: string
   ) {
@@ -122,6 +133,7 @@ export class ActorService {
       mutation: START_ACTOR_PROCESS,
       variables: {
         actorName,
+        operationName,
         details,
         shiftName
       },
@@ -129,11 +141,12 @@ export class ActorService {
   }
 
   @ErrorCatch
-  public finishActorProcess$(actorName: string, quantity: number) {
+  public finishActorProcess$(actorName: string, operationName: string, quantity: number) {
     return this.apollo.mutate({
       mutation: FINISH_ACTOR_PROCESS,
       variables: {
         actorName,
+        operationName,
         quantity,
       },
     })
@@ -149,7 +162,7 @@ export class ActorService {
         .pipe(
           map((result) => {
             const actor = result.data.actorUpdated
-            this.getActorFromName(actor.name).status = actor.status
+            this.getActorFromName(actor.name, actor.operation.name).status = actor.status
             return actor
           })
         )

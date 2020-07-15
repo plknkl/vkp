@@ -37,7 +37,7 @@ export class ActorContainerComponent implements OnInit, OnDestroy {
         this._routerOutlet.activatedRoute.params
           .pipe(
             map((params: Params) => {
-              const actor = this._actorService.getActorFromName(params.name)
+              const actor = this._actorService.getActorFromName(params.name, params.operation)
               if (actor === null) {
                 this._router.navigate([MONITORING])
               } else {

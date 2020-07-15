@@ -58,7 +58,7 @@ export class ShopEditComponent implements OnInit {
   }
 
   onDelete() {
-    this._shopService.deleteShop$(this.currentItem).subscribe(() => {
+    this._shopService.deleteShop$(this.currentItem.name).subscribe(() => {
       this._router.navigate(['administration', SHOP])
     })
   }

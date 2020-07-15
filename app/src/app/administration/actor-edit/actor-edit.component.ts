@@ -49,7 +49,13 @@ export class ActorEditComponent implements OnInit {
     })
 
     this._activatedRoute.url.pipe(
-      switchMap((url) => this._actorService.getActor$(url.pop().path))
+      switchMap((url) => {
+        let operation = ''
+        if(window.history.state.data) {
+          operation = window.history.state.data.operation.name
+        }
+        return this._actorService.getActor$(url.pop().path, operation)
+      })
     ).subscribe((item: Actor) => {
         if (item) {
           this.currentItem = item

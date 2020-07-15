@@ -55,12 +55,14 @@ export class ActorListComponent implements OnInit, OnDestroy {
 
   edit(item: Actor) {
     this.toolbarService.changeTitle(item.name)
-    this._router.navigate([ACTOR, item.name])
+    this._router.navigate([ACTOR, item.operation.name, item.name])
   }
 
   private _updateActor(item: Actor) {
     if (item && this.items) {
-      this.items.find((x) => x.name === item.name).status = item.status
+      this.items.find(
+        (x) => (x.name === item.name) && (x.operation.name === item.operation.name)
+      ).status = item.status
     }
   }
 }

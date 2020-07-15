@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'monitoring', component: ActorContainerComponent, data: { list: true } },
   {
-    path: 'actor/:name',
+    path: 'actor/:operation/:name',
     component: ActorContainerComponent,
     data: {
       edit: true,

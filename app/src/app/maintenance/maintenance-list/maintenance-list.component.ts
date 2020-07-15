@@ -24,7 +24,7 @@ export class MaintenanceListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._toolbarService.changeTitle('maintenance')
 
-    this.displayedColumns = ['name', 'status'];
+    this.displayedColumns = ['operation', 'name', 'status'];
 
     this._subs.add(this._actorService
       .getActorList$()

@@ -77,7 +77,10 @@ export class AdministrationComponent implements OnInit, OnDestroy {
       this._router.navigate(['administration', SHOP, item.name], {state: {data: item}})
     }
     if(this._currentPage == ACTOR) {
-      this._router.navigate(['administration', ACTOR, item.name], {state: {data: item}})
+      this._router.navigate(
+        ['administration', ACTOR, item.name],
+        {state: {data: item}}
+      )
     }
     if(this._currentPage == ARTICLE) {
       this._router.navigate(['administration', ARTICLE, item.name], {state: {data: item}})
