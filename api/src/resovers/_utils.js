@@ -60,7 +60,7 @@ const findShopByName = async (shopName, model = false) => {
 const findJob = async (id, model = false) => {
   const job = await models.Job.findOne({
     where: { id },
-    include: [models.Actor, models.Shift,
+    include: [models.Actor, models.Shift, models.Operation,
       {
         model: models.Batch,
         include: models.Article

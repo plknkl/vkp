@@ -16,6 +16,7 @@ which applying an <<Operation>>, transform the <<Batch>>. The single transformat
 === Operation [[Operation]]
 An <<Operation>> is a description of some <<Job>> which is tipically executed by an <<Actor>> on a <<Batch>>.
 Various Operations could use different measuring units, like metres or kilograms.
+The items are what type of material could be processed by that operation.
 
 [source,javascript]
 ../vkp-api/src/schema/operation.js

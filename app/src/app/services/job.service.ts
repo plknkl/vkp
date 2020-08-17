@@ -52,8 +52,9 @@ export class JobService {
         })
         .pipe(
           map((result) => {
-            const log = result.data.jobUpdated
-            return log
+            const job = result.data.jobUpdated
+            job.batch.details = JSON.parse(job.batch.details as string)
+            return job
           })
         )
         .subscribe(this._updatedJobSubject)

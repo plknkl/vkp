@@ -82,7 +82,6 @@ export class JobListComponent implements OnInit, OnDestroy {
       this._jobService
       .updatedJobSubscription$()
       .subscribe((job: Job) => {
-
         this._items = this._items.filter((item) => {
           return (
             item.startedAt !== job.startedAt
