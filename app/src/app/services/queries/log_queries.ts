@@ -15,12 +15,6 @@ subscription {
             name
           }
         }
-        batch {
-          businessId
-          article {
-            name
-          }
-        }
       }
     }
   }
@@ -39,12 +33,6 @@ query {
       ... on Job {
         actor {
           operation {
-            name
-          }
-        }
-        batch {
-          businessId
-          article {
             name
           }
         }

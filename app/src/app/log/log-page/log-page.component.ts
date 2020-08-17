@@ -49,7 +49,6 @@ export class LogPageComponent implements OnInit, OnDestroy {
 
     if (log.entity.__typename == 'Job') {
       message = `${log.entity.actor.operation.name}
-        ${log.entity.batch.article.name} #${log.entity.batch.businessId}
         - ${log.status}
       `
     }
